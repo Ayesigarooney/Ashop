@@ -14,10 +14,12 @@ class SettingsRepository {
   static const _pinLockoutKey = 'sec_pin_lockout_until';
   static const _pinLengthKey = 'sec_pin_length';
 
-  String get shopName => _box.get(AppConstants.shopNameKey, defaultValue: 'My Shop');
+  String get shopName =>
+      _box.get(AppConstants.shopNameKey, defaultValue: 'My Shop');
   set shopName(String v) => _box.put(AppConstants.shopNameKey, v);
 
-  String get shopAddress => _box.get(AppConstants.shopAddressKey, defaultValue: '');
+  String get shopAddress =>
+      _box.get(AppConstants.shopAddressKey, defaultValue: '');
   set shopAddress(String v) => _box.put(AppConstants.shopAddressKey, v);
 
   String get shopPhone => _box.get(AppConstants.shopPhoneKey, defaultValue: '');
@@ -26,13 +28,20 @@ class SettingsRepository {
   String? get shopLogo => _box.get(AppConstants.shopLogoKey);
   set shopLogo(String? v) => _box.put(AppConstants.shopLogoKey, v);
 
-  String get currency => _box.get(AppConstants.currencyKey, defaultValue: AppConstants.defaultCurrency);
+  String get currency => _box.get(
+    AppConstants.currencyKey,
+    defaultValue: AppConstants.defaultCurrency,
+  );
   set currency(String v) => _box.put(AppConstants.currencyKey, v);
 
-  String get receiptHeader => _box.get(AppConstants.receiptHeaderKey, defaultValue: '');
+  String get receiptHeader =>
+      _box.get(AppConstants.receiptHeaderKey, defaultValue: '');
   set receiptHeader(String v) => _box.put(AppConstants.receiptHeaderKey, v);
 
-  String get receiptFooter => _box.get(AppConstants.receiptFooterKey, defaultValue: AppConstants.defaultReceiptFooter);
+  String get receiptFooter => _box.get(
+    AppConstants.receiptFooterKey,
+    defaultValue: AppConstants.defaultReceiptFooter,
+  );
   set receiptFooter(String v) => _box.put(AppConstants.receiptFooterKey, v);
 
   bool get isDarkMode => _box.get(AppConstants.darkModeKey, defaultValue: true);
@@ -41,7 +50,8 @@ class SettingsRepository {
     themeNotifier.value = v;
   }
 
-  bool get isPinEnabled => _box.get(AppConstants.pinEnabledKey, defaultValue: false);
+  bool get isPinEnabled =>
+      _box.get(AppConstants.pinEnabledKey, defaultValue: false);
   set isPinEnabled(bool v) => _box.put(AppConstants.pinEnabledKey, v);
 
   /// Length of the configured PIN (used by the PIN screen to know when to verify)
@@ -98,7 +108,9 @@ class SettingsRepository {
     final attempts = (_box.get(_pinAttemptsKey) as int? ?? 0) + 1;
     _box.put(_pinAttemptsKey, attempts);
     if (attempts >= maxPinAttempts) {
-      final lockoutUntil = DateTime.now().add(lockoutDuration).millisecondsSinceEpoch;
+      final lockoutUntil = DateTime.now()
+          .add(lockoutDuration)
+          .millisecondsSinceEpoch;
       _box.put(_pinLockoutKey, lockoutUntil);
       return true; // now locked out
     }
@@ -120,10 +132,15 @@ class SettingsRepository {
     _box.put(AppConstants.pinEnabledKey, false);
   }
 
-  int get lowStockThreshold => _box.get(AppConstants.lowStockThresholdKey, defaultValue: AppConstants.defaultLowStockThreshold);
-  set lowStockThreshold(int v) => _box.put(AppConstants.lowStockThresholdKey, v);
+  int get lowStockThreshold => _box.get(
+    AppConstants.lowStockThresholdKey,
+    defaultValue: AppConstants.defaultLowStockThreshold,
+  );
+  set lowStockThreshold(int v) =>
+      _box.put(AppConstants.lowStockThresholdKey, v);
 
-  bool get taxEnabled => _box.get(AppConstants.taxEnabledKey, defaultValue: false);
+  bool get taxEnabled =>
+      _box.get(AppConstants.taxEnabledKey, defaultValue: false);
   set taxEnabled(bool v) => _box.put(AppConstants.taxEnabledKey, v);
 
   double get taxRate => _box.get(AppConstants.taxRateKey, defaultValue: 0.18);
@@ -133,26 +150,32 @@ class SettingsRepository {
   set isFirstLaunch(bool v) => _box.put('first_launch', v);
 
   // Printer settings
-  String get printerPaperSize => _box.get('printer_paper_size', defaultValue: '80mm');
+  String get printerPaperSize =>
+      _box.get('printer_paper_size', defaultValue: '80mm');
   set printerPaperSize(String v) => _box.put('printer_paper_size', v);
 
   bool get printerShowLogo => _box.get('printer_show_logo', defaultValue: true);
   set printerShowLogo(bool v) => _box.put('printer_show_logo', v);
 
-  bool get printerShowFooter => _box.get('printer_show_footer', defaultValue: true);
+  bool get printerShowFooter =>
+      _box.get('printer_show_footer', defaultValue: true);
   set printerShowFooter(bool v) => _box.put('printer_show_footer', v);
 
   // Receipt template settings
-  String get receiptTemplateStyle => _box.get('receipt_template_style', defaultValue: 'standard');
+  String get receiptTemplateStyle =>
+      _box.get('receipt_template_style', defaultValue: 'standard');
   set receiptTemplateStyle(String v) => _box.put('receipt_template_style', v);
 
-  bool get enableEmailReceipts => _box.get('enable_email_receipts', defaultValue: false);
+  bool get enableEmailReceipts =>
+      _box.get('enable_email_receipts', defaultValue: false);
   set enableEmailReceipts(bool v) => _box.put('enable_email_receipts', v);
 
   // Scheduler settings
   String? get scheduledReportEmail => _box.get('scheduled_report_email');
   set scheduledReportEmail(String? v) => _box.put('scheduled_report_email', v);
 
-  String? get scheduledReportFrequency => _box.get('scheduled_report_frequency');
-  set scheduledReportFrequency(String? v) => _box.put('scheduled_report_frequency', v);
+  String? get scheduledReportFrequency =>
+      _box.get('scheduled_report_frequency');
+  set scheduledReportFrequency(String? v) =>
+      _box.put('scheduled_report_frequency', v);
 }

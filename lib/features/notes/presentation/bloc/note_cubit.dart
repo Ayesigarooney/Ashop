@@ -16,7 +16,9 @@ abstract class NoteState extends Equatable {
 }
 
 class NoteInitial extends NoteState {}
+
 class NoteLoading extends NoteState {}
+
 class NoteLoaded extends NoteState {
   final List<NoteModel> notes;
   final List<NoteModel> filtered;
@@ -66,7 +68,9 @@ class NoteCubit extends Cubit<NoteState> {
 
   NoteCubit(this._repository) : super(NoteInitial()) {
     _boxListener = _onBoxChanged;
-    Hive.box<dynamic>(AppConstants.notesBox).listenable().addListener(_boxListener);
+    Hive.box<dynamic>(
+      AppConstants.notesBox,
+    ).listenable().addListener(_boxListener);
   }
 
   void _onBoxChanged() {
@@ -88,7 +92,9 @@ class NoteCubit extends Cubit<NoteState> {
   Future<void> close() {
     // Must use the same box type as registration, otherwise removeListener is a no-op
     // and the listener leaks on every close().
-    Hive.box<dynamic>(AppConstants.notesBox).listenable().removeListener(_boxListener);
+    Hive.box<dynamic>(
+      AppConstants.notesBox,
+    ).listenable().removeListener(_boxListener);
     return super.close();
   }
 
@@ -116,28 +122,40 @@ class NoteCubit extends Cubit<NoteState> {
     }
   }
 
-  void _filterAndEmit(List<NoteModel> allNotes, String searchQuery, String? category) {
+  void _filterAndEmit(
+    List<NoteModel> allNotes,
+    String searchQuery,
+    String? category,
+  ) {
     List<NoteModel> filtered = allNotes;
 
     // Filter by category
     if (category != null && category != 'All') {
-      filtered = filtered.where((n) => n.category.toLowerCase() == category.toLowerCase()).toList();
+      filtered = filtered
+          .where((n) => n.category.toLowerCase() == category.toLowerCase())
+          .toList();
     }
 
     // Filter by search query
     if (searchQuery.isNotEmpty) {
       final q = searchQuery.toLowerCase();
-      filtered = filtered.where((n) =>
-          n.title.toLowerCase().contains(q) ||
-          n.content.toLowerCase().contains(q)).toList();
+      filtered = filtered
+          .where(
+            (n) =>
+                n.title.toLowerCase().contains(q) ||
+                n.content.toLowerCase().contains(q),
+          )
+          .toList();
     }
 
-    emit(NoteLoaded(
-      notes: allNotes,
-      filtered: filtered,
-      searchQuery: searchQuery,
-      selectedCategory: category,
-    ));
+    emit(
+      NoteLoaded(
+        notes: allNotes,
+        filtered: filtered,
+        searchQuery: searchQuery,
+        selectedCategory: category,
+      ),
+    );
   }
 
   Future<void> addNote({
@@ -178,7 +196,10 @@ class NoteCubit extends Cubit<NoteState> {
 
   Future<void> togglePin(NoteModel note) async {
     try {
-      final updated = note.copyWith(isPinned: !note.isPinned, updatedAt: DateTime.now());
+      final updated = note.copyWith(
+        isPinned: !note.isPinned,
+        updatedAt: DateTime.now(),
+      );
       await _repository.saveNote(updated);
       loadNotes();
     } catch (e) {

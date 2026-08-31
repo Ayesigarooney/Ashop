@@ -22,13 +22,19 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
   int _colorIndex = 0;
   bool _isPinned = false;
 
-  final List<String> _categories = ['General', 'Todo', 'Supplier', 'Customer', 'Idea'];
+  final List<String> _categories = [
+    'General',
+    'Todo',
+    'Supplier',
+    'Customer',
+    'Idea',
+  ];
   final List<Color> _paletteColors = [
-    AppTheme.primaryColor,     // 0: Purple / General
-    AppTheme.accentColor,      // 1: Teal / Customer
-    AppTheme.warningColor,     // 2: Yellow / Todo
-    AppTheme.dangerColor,      // 3: Red / Idea
-    const Color(0xFF7F8C8D),   // 4: Slate / Supplier
+    AppTheme.primaryColor, // 0: Purple / General
+    AppTheme.accentColor, // 1: Teal / Customer
+    AppTheme.warningColor, // 2: Yellow / Todo
+    AppTheme.dangerColor, // 3: Red / Idea
+    const Color(0xFF7F8C8D), // 4: Slate / Supplier
   ];
 
   @override
@@ -61,12 +67,12 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
 
     if (widget.note == null) {
       context.read<NoteCubit>().addNote(
-            title: title,
-            content: content,
-            category: _category,
-            colorIndex: _colorIndex,
-            isPinned: _isPinned,
-          );
+        title: title,
+        content: content,
+        category: _category,
+        colorIndex: _colorIndex,
+        isPinned: _isPinned,
+      );
     } else {
       final updated = widget.note!.copyWith(
         title: title,
@@ -107,7 +113,9 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(backgroundColor: AppTheme.dangerColor),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.dangerColor,
+              ),
               child: const Text('Delete'),
             ),
           ],
@@ -195,7 +203,11 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                     value: 'pdf',
                     child: Row(
                       children: [
-                        Icon(Icons.picture_as_pdf_rounded, size: 18, color: Colors.red),
+                        Icon(
+                          Icons.picture_as_pdf_rounded,
+                          size: 18,
+                          color: Colors.red,
+                        ),
                         SizedBox(width: 10),
                         Text('Share / Print as PDF'),
                       ],
@@ -206,9 +218,16 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                     value: 'delete',
                     child: Row(
                       children: [
-                        Icon(Icons.delete_outline_rounded, size: 18, color: AppTheme.dangerColor),
+                        Icon(
+                          Icons.delete_outline_rounded,
+                          size: 18,
+                          color: AppTheme.dangerColor,
+                        ),
                         SizedBox(width: 10),
-                        Text('Delete Note', style: TextStyle(color: AppTheme.dangerColor)),
+                        Text(
+                          'Delete Note',
+                          style: TextStyle(color: AppTheme.dangerColor),
+                        ),
                       ],
                     ),
                   ),
@@ -237,7 +256,11 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                         hintStyle: GoogleFonts.plusJakartaSans(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
-                          color: (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub).withValues(alpha: 0.4),
+                          color:
+                              (isDark
+                                      ? AppTheme.darkTextSub
+                                      : AppTheme.lightTextSub)
+                                  .withValues(alpha: 0.4),
                         ),
                         filled: false,
                         border: InputBorder.none,
@@ -277,21 +300,32 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                                   fontWeight: FontWeight.w700,
                                   color: isSelected
                                       ? Colors.white
-                                      : (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub),
+                                      : (isDark
+                                            ? AppTheme.darkTextSub
+                                            : AppTheme.lightTextSub),
                                 ),
                                 backgroundColor: isSelected
                                     ? colors['accent']
                                     : (isDark
-                                        ? Colors.black.withValues(alpha: 0.2)
-                                        : Colors.white.withValues(alpha: 0.5)),
-                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
+                                          ? Colors.black.withValues(alpha: 0.2)
+                                          : Colors.white.withValues(
+                                              alpha: 0.5,
+                                            )),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 0,
+                                ),
                                 side: BorderSide(
                                   color: isSelected
                                       ? Colors.transparent
-                                      : colors['border']!.withValues(alpha: 0.5),
+                                      : colors['border']!.withValues(
+                                          alpha: 0.5,
+                                        ),
                                   width: 0.5,
                                 ),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           );
@@ -315,7 +349,11 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                         hintText: 'Start writing your business notes here...',
                         hintStyle: GoogleFonts.inter(
                           fontSize: 14.5,
-                          color: (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub).withValues(alpha: 0.4),
+                          color:
+                              (isDark
+                                      ? AppTheme.darkTextSub
+                                      : AppTheme.lightTextSub)
+                                  .withValues(alpha: 0.4),
                         ),
                         filled: false,
                         border: InputBorder.none,
@@ -354,7 +392,9 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                     style: GoogleFonts.plusJakartaSans(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
-                      color: isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub,
+                      color: isDark
+                          ? AppTheme.darkTextSub
+                          : AppTheme.lightTextSub,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -381,7 +421,9 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                                   color: color.withValues(alpha: 0.25),
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: isSelected ? color : colors['border']!,
+                                    color: isSelected
+                                        ? color
+                                        : colors['border']!,
                                     width: isSelected ? 2.5 : 1,
                                   ),
                                 ),

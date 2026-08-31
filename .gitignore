@@ -52,3 +52,13 @@ android/app/*.jks
 android/app/*.keystore
 # Security: explicitly exclude any keystore that may already be present
 ashop-release.jks
+
+# Additional Build & IDE Ignores
+.gradle/
+android/.gradle/
+build/
+.dart_tool/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db

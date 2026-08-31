@@ -26,9 +26,13 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Scan Barcode',
-            style: GoogleFonts.plusJakartaSans(
-                color: Colors.white, fontWeight: FontWeight.w700)),
+        title: Text(
+          'Scan Barcode',
+          style: GoogleFonts.plusJakartaSans(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
@@ -60,17 +64,13 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
             },
           ),
           // Overlay
-          CustomPaint(
-            painter: _ScannerOverlayPainter(),
-            child: Container(),
-          ),
+          CustomPaint(painter: _ScannerOverlayPainter(), child: Container()),
           // Bottom Instructions
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: const EdgeInsets.only(bottom: 80),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(20),
@@ -78,9 +78,10 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
               child: Text(
                 'Point camera at a barcode to scan',
                 style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -91,10 +92,13 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
               padding: const EdgeInsets.only(bottom: 24),
               child: TextButton(
                 onPressed: () => _showManualEntry(context),
-                child: Text('Enter barcode manually',
-                    style: GoogleFonts.inter(
-                        color: AppTheme.primaryLight,
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  'Enter barcode manually',
+                  style: GoogleFonts.inter(
+                    color: AppTheme.primaryLight,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           ),
@@ -139,13 +143,13 @@ class _ManualEntryDialogState extends State<_ManualEntryDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Manual Entry',
-          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+      title: Text(
+        'Manual Entry',
+        style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+      ),
       content: TextField(
         controller: _ctrl,
-        decoration: const InputDecoration(
-          hintText: 'Enter barcode number',
-        ),
+        decoration: const InputDecoration(hintText: 'Enter barcode number'),
         autofocus: true,
         keyboardType: TextInputType.text,
       ),
@@ -181,7 +185,9 @@ class _ScannerOverlayPainter extends CustomPainter {
       Path.combine(
         PathOperation.difference,
         Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height)),
-        Path()..addRRect(RRect.fromRectAndRadius(cutout, const Radius.circular(12))),
+        Path()..addRRect(
+          RRect.fromRectAndRadius(cutout, const Radius.circular(12)),
+        ),
       ),
       paint,
     );
@@ -195,23 +201,49 @@ class _ScannerOverlayPainter extends CustomPainter {
 
     const cornerLen = 24.0;
     // Top-left
-    canvas.drawLine(Offset(left, top + cornerLen), Offset(left, top), linePaint);
-    canvas.drawLine(Offset(left, top), Offset(left + cornerLen, top), linePaint);
+    canvas.drawLine(
+      Offset(left, top + cornerLen),
+      Offset(left, top),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(left, top),
+      Offset(left + cornerLen, top),
+      linePaint,
+    );
     // Top-right
-    canvas.drawLine(Offset(left + cutoutWidth - cornerLen, top),
-        Offset(left + cutoutWidth, top), linePaint);
-    canvas.drawLine(Offset(left + cutoutWidth, top),
-        Offset(left + cutoutWidth, top + cornerLen), linePaint);
+    canvas.drawLine(
+      Offset(left + cutoutWidth - cornerLen, top),
+      Offset(left + cutoutWidth, top),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(left + cutoutWidth, top),
+      Offset(left + cutoutWidth, top + cornerLen),
+      linePaint,
+    );
     // Bottom-left
-    canvas.drawLine(Offset(left, top + cutoutHeight - cornerLen),
-        Offset(left, top + cutoutHeight), linePaint);
-    canvas.drawLine(Offset(left, top + cutoutHeight),
-        Offset(left + cornerLen, top + cutoutHeight), linePaint);
+    canvas.drawLine(
+      Offset(left, top + cutoutHeight - cornerLen),
+      Offset(left, top + cutoutHeight),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(left, top + cutoutHeight),
+      Offset(left + cornerLen, top + cutoutHeight),
+      linePaint,
+    );
     // Bottom-right
-    canvas.drawLine(Offset(left + cutoutWidth, top + cutoutHeight - cornerLen),
-        Offset(left + cutoutWidth, top + cutoutHeight), linePaint);
-    canvas.drawLine(Offset(left + cutoutWidth, top + cutoutHeight),
-        Offset(left + cutoutWidth - cornerLen, top + cutoutHeight), linePaint);
+    canvas.drawLine(
+      Offset(left + cutoutWidth, top + cutoutHeight - cornerLen),
+      Offset(left + cutoutWidth, top + cutoutHeight),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(left + cutoutWidth, top + cutoutHeight),
+      Offset(left + cutoutWidth - cornerLen, top + cutoutHeight),
+      linePaint,
+    );
   }
 
   @override

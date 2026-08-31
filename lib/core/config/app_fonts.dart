@@ -37,14 +37,13 @@ class AppFonts {
     Color? color,
     double? letterSpacing,
     double? height,
-  }) =>
-      GoogleFonts.plusJakartaSans(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-        letterSpacing: letterSpacing ?? _headingSpacing(fontSize),
-        height: height,
-      );
+  }) => GoogleFonts.plusJakartaSans(
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+    color: color,
+    letterSpacing: letterSpacing ?? _headingSpacing(fontSize),
+    height: height,
+  );
 
   // ── Body & Number font (Inter) ─────────────────────────────────────────────
 
@@ -55,14 +54,13 @@ class AppFonts {
     Color? color,
     double? letterSpacing,
     double? height,
-  }) =>
-      GoogleFonts.inter(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-        letterSpacing: letterSpacing,
-        height: height ?? 1.45,
-      );
+  }) => GoogleFonts.inter(
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+    color: color,
+    letterSpacing: letterSpacing,
+    height: height ?? 1.45,
+  );
 
   /// Numeric values — Inter with clean legibility and compact width.
   /// Use for prices, quantities, totals.
@@ -70,31 +68,35 @@ class AppFonts {
     double fontSize = 16,
     FontWeight fontWeight = FontWeight.w700,
     Color? color,
-  }) =>
-      GoogleFonts.inter(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-        letterSpacing: -0.3,
-        height: 1.1,
-      );
+  }) => GoogleFonts.inter(
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+    color: color,
+    letterSpacing: -0.3,
+    height: 1.1,
+  );
 
   // ── Convenience shorthands ─────────────────────────────────────────────────
 
   /// App bar / screen title
-  static TextStyle get appBarTitle => heading(fontSize: 20, fontWeight: FontWeight.w800, letterSpacing: -0.3);
+  static TextStyle get appBarTitle =>
+      heading(fontSize: 20, fontWeight: FontWeight.w800, letterSpacing: -0.3);
 
   /// Section header (e.g. "Quick Actions", "Recent Sales")
-  static TextStyle get sectionTitle => heading(fontSize: 15, fontWeight: FontWeight.w700);
+  static TextStyle get sectionTitle =>
+      heading(fontSize: 15, fontWeight: FontWeight.w700);
 
   /// Card / tile primary label
-  static TextStyle get cardTitle => heading(fontSize: 14, fontWeight: FontWeight.w700);
+  static TextStyle get cardTitle =>
+      heading(fontSize: 14, fontWeight: FontWeight.w700);
 
   /// Small label (category badge, tab label)
-  static TextStyle get label => heading(fontSize: 12, fontWeight: FontWeight.w700);
+  static TextStyle get label =>
+      heading(fontSize: 12, fontWeight: FontWeight.w700);
 
   /// Tiny label (badge, timestamp caption)
-  static TextStyle get caption => body(fontSize: 10, fontWeight: FontWeight.w500);
+  static TextStyle get caption =>
+      body(fontSize: 10, fontWeight: FontWeight.w500);
 
   /// Standard body paragraph
   static TextStyle get bodyMd => body(fontSize: 14);
@@ -106,33 +108,84 @@ class AppFonts {
   static TextStyle get bodyXs => body(fontSize: 11);
 
   /// Hero revenue / large price display
-  static TextStyle get heroNumber => number(fontSize: 30, fontWeight: FontWeight.w800);
+  static TextStyle get heroNumber =>
+      number(fontSize: 30, fontWeight: FontWeight.w800);
 
   /// Medium price / stat value
-  static TextStyle get statNumber => number(fontSize: 18, fontWeight: FontWeight.w800);
+  static TextStyle get statNumber =>
+      number(fontSize: 18, fontWeight: FontWeight.w800);
 
   /// Small inline price
-  static TextStyle get priceSmall => number(fontSize: 13, fontWeight: FontWeight.w700);
+  static TextStyle get priceSmall =>
+      number(fontSize: 13, fontWeight: FontWeight.w700);
 
   // ── Theme text theme ───────────────────────────────────────────────────────
 
   static TextTheme buildTextTheme(Color primary, Color secondary) => TextTheme(
-        displayLarge: heading(fontSize: 57, fontWeight: FontWeight.w800, color: primary),
-        displayMedium: heading(fontSize: 45, fontWeight: FontWeight.w700, color: primary),
-        displaySmall: heading(fontSize: 36, fontWeight: FontWeight.w700, color: primary),
-        headlineLarge: heading(fontSize: 32, fontWeight: FontWeight.w800, color: primary),
-        headlineMedium: heading(fontSize: 28, fontWeight: FontWeight.w700, color: primary),
-        headlineSmall: heading(fontSize: 24, fontWeight: FontWeight.w700, color: primary),
-        titleLarge: heading(fontSize: 22, fontWeight: FontWeight.w700, color: primary),
-        titleMedium: heading(fontSize: 16, fontWeight: FontWeight.w600, color: primary),
-        titleSmall: heading(fontSize: 14, fontWeight: FontWeight.w600, color: primary),
-        bodyLarge: body(fontSize: 16, color: primary, height: 1.5),
-        bodyMedium: body(fontSize: 14, color: primary, height: 1.5),
-        bodySmall: body(fontSize: 12, color: secondary, height: 1.5),
-        labelLarge: heading(fontSize: 14, fontWeight: FontWeight.w600, color: primary),
-        labelMedium: body(fontSize: 12, fontWeight: FontWeight.w500, color: secondary),
-        labelSmall: body(fontSize: 11, fontWeight: FontWeight.w500, color: secondary),
-      );
+    displayLarge: heading(
+      fontSize: 57,
+      fontWeight: FontWeight.w800,
+      color: primary,
+    ),
+    displayMedium: heading(
+      fontSize: 45,
+      fontWeight: FontWeight.w700,
+      color: primary,
+    ),
+    displaySmall: heading(
+      fontSize: 36,
+      fontWeight: FontWeight.w700,
+      color: primary,
+    ),
+    headlineLarge: heading(
+      fontSize: 32,
+      fontWeight: FontWeight.w800,
+      color: primary,
+    ),
+    headlineMedium: heading(
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
+      color: primary,
+    ),
+    headlineSmall: heading(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: primary,
+    ),
+    titleLarge: heading(
+      fontSize: 22,
+      fontWeight: FontWeight.w700,
+      color: primary,
+    ),
+    titleMedium: heading(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: primary,
+    ),
+    titleSmall: heading(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: primary,
+    ),
+    bodyLarge: body(fontSize: 16, color: primary, height: 1.5),
+    bodyMedium: body(fontSize: 14, color: primary, height: 1.5),
+    bodySmall: body(fontSize: 12, color: secondary, height: 1.5),
+    labelLarge: heading(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: primary,
+    ),
+    labelMedium: body(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: secondary,
+    ),
+    labelSmall: body(
+      fontSize: 11,
+      fontWeight: FontWeight.w500,
+      color: secondary,
+    ),
+  );
 
   // ── Internal helpers ───────────────────────────────────────────────────────
 

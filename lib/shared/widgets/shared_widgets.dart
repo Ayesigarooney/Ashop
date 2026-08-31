@@ -97,7 +97,10 @@ class StatCard extends StatelessWidget {
                   Flexible(
                     child: Container(
                       margin: const EdgeInsets.only(left: 4),
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(5),
@@ -253,10 +256,7 @@ class EmptyState extends StatelessWidget {
               ),
               if (actionLabel != null) ...[
                 const SizedBox(height: 22),
-                ElevatedButton(
-                  onPressed: onAction,
-                  child: Text(actionLabel!),
-                ),
+                ElevatedButton(onPressed: onAction, child: Text(actionLabel!)),
               ],
             ],
           ),
@@ -379,7 +379,10 @@ Future<bool?> showConfirmDialog(
   return showDialog<bool>(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: Text(title, style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+      title: Text(
+        title,
+        style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+      ),
       content: Text(message, style: GoogleFonts.inter(fontSize: 14)),
       actions: [
         TextButton(
@@ -388,7 +391,9 @@ Future<bool?> showConfirmDialog(
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: isDanger ? AppTheme.dangerColor : AppTheme.primaryColor,
+            backgroundColor: isDanger
+                ? AppTheme.dangerColor
+                : AppTheme.primaryColor,
           ),
           onPressed: () => Navigator.pop(ctx, true),
           child: Text(confirmLabel),

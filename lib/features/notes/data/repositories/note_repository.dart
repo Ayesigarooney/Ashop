@@ -8,10 +8,7 @@ class NoteRepository {
   List<NoteModel> getAllNotes() {
     try {
       final maps = _box.values.toList();
-      return maps
-          .whereType<Map>()
-          .map((m) => NoteModel.fromMap(m))
-          .toList()
+      return maps.whereType<Map>().map((m) => NoteModel.fromMap(m)).toList()
         ..sort((a, b) {
           if (a.isPinned && !b.isPinned) return -1;
           if (!a.isPinned && b.isPinned) return 1;

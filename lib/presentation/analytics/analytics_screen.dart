@@ -32,12 +32,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   void initState() {
     super.initState();
     _onSalesChanged = () => setState(() {});
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().addListener(_onSalesChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().addListener(_onSalesChanged);
   }
 
   @override
   void dispose() {
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().removeListener(_onSalesChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().removeListener(_onSalesChanged);
     super.dispose();
   }
 
@@ -56,15 +60,26 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       DateTime.now().subtract(Duration(days: _selectedPeriod)),
       DateTime.now(),
     );
-    final totalRevenue = allSales.where((s) => !s.isRefunded).fold(0.0, (s, sale) => s + sale.total);
-    final totalProfit = allSales.where((s) => !s.isRefunded).fold(
-        0.0, (s, sale) => s + sale.items.fold(0.0, (a, i) => a + i.profit));
+    final totalRevenue = allSales
+        .where((s) => !s.isRefunded)
+        .fold(0.0, (s, sale) => s + sale.total);
+    final totalProfit = allSales
+        .where((s) => !s.isRefunded)
+        .fold(
+          0.0,
+          (s, sale) => s + sale.items.fold(0.0, (a, i) => a + i.profit),
+        );
     final totalTransactions = allSales.where((s) => !s.isRefunded).length;
-    final avgOrder = totalTransactions > 0 ? totalRevenue / totalTransactions : 0.0;
+    final avgOrder = totalTransactions > 0
+        ? totalRevenue / totalTransactions
+        : 0.0;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Analytics', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Analytics',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.history_rounded, size: 16),
@@ -89,10 +104,19 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     onTap: () => setState(() => _selectedPeriod = d),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 150),
-                      margin: const EdgeInsets.only(right: 8, bottom: 16, top: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                      margin: const EdgeInsets.only(
+                        right: 8,
+                        bottom: 16,
+                        top: 8,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
-                        color: selected ? AppTheme.primaryColor : Colors.transparent,
+                        color: selected
+                            ? AppTheme.primaryColor
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           color: selected
@@ -101,7 +125,13 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         ),
                       ),
                       child: Text(
-                        d == 7 ? '7 days' : d == 14 ? '14 days' : d == 30 ? '30 days' : '90 days',
+                        d == 7
+                            ? '7 days'
+                            : d == 14
+                            ? '14 days'
+                            : d == 30
+                            ? '30 days'
+                            : '90 days',
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -127,13 +157,19 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               children: [
                 StatCard(
                   title: 'Revenue',
-                  value: CurrencyFormatter.formatCompact(totalRevenue, currency: currency),
+                  value: CurrencyFormatter.formatCompact(
+                    totalRevenue,
+                    currency: currency,
+                  ),
                   icon: Icons.payments_rounded,
                   color: AppTheme.primaryColor,
                 ),
                 StatCard(
                   title: 'Profit',
-                  value: CurrencyFormatter.formatCompact(totalProfit, currency: currency),
+                  value: CurrencyFormatter.formatCompact(
+                    totalProfit,
+                    currency: currency,
+                  ),
                   icon: Icons.trending_up_rounded,
                   color: AppTheme.successColor,
                 ),
@@ -145,7 +181,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 ),
                 StatCard(
                   title: 'Avg. Order',
-                  value: CurrencyFormatter.formatCompact(avgOrder, currency: currency),
+                  value: CurrencyFormatter.formatCompact(
+                    avgOrder,
+                    currency: currency,
+                  ),
                   icon: Icons.shopping_cart_rounded,
                   color: AppTheme.accentColor,
                 ),
@@ -167,19 +206,25 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
                 ),
               ),
-              child: revenueData.isEmpty || revenueData.values.every((v) => v == 0)
+              child:
+                  revenueData.isEmpty || revenueData.values.every((v) => v == 0)
                   ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.bar_chart_rounded,
-                              size: 36, color: theme.colorScheme.onSurface.withOpacity(0.2)),
+                          Icon(
+                            Icons.bar_chart_rounded,
+                            size: 36,
+                            color: theme.colorScheme.onSurface.withOpacity(0.2),
+                          ),
                           const SizedBox(height: 8),
                           Text(
                             'No data for this period',
                             style: GoogleFonts.inter(
                               fontSize: 13,
-                              color: theme.colorScheme.onSurface.withOpacity(0.4),
+                              color: theme.colorScheme.onSurface.withOpacity(
+                                0.4,
+                              ),
                             ),
                           ),
                         ],
@@ -192,7 +237,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           drawVerticalLine: false,
                           horizontalInterval: _getChartInterval(revenueData),
                           getDrawingHorizontalLine: (_) => FlLine(
-                            color: theme.colorScheme.onSurface.withOpacity(0.06),
+                            color: theme.colorScheme.onSurface.withOpacity(
+                              0.06,
+                            ),
                             strokeWidth: 1,
                           ),
                         ),
@@ -202,10 +249,14 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                               showTitles: true,
                               reservedSize: 44,
                               getTitlesWidget: (v, _) => Text(
-                                CurrencyFormatter.formatCompact(v, currency: ''),
+                                CurrencyFormatter.formatCompact(
+                                  v,
+                                  currency: '',
+                                ),
                                 style: GoogleFonts.inter(
                                   fontSize: 8,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.45),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.45),
                                 ),
                               ),
                             ),
@@ -224,7 +275,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                       keys[idx],
                                       style: GoogleFonts.inter(
                                         fontSize: 8,
-                                        color: theme.colorScheme.onSurface.withOpacity(0.45),
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.45),
                                       ),
                                     ),
                                   );
@@ -233,14 +285,24 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                               },
                             ),
                           ),
-                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
                         ),
                         borderData: FlBorderData(show: false),
                         lineBarsData: [
                           LineChartBarData(
-                            spots: revenueData.entries.toList().asMap().entries
-                                .map((e) => FlSpot(e.key.toDouble(), e.value.value))
+                            spots: revenueData.entries
+                                .toList()
+                                .asMap()
+                                .entries
+                                .map(
+                                  (e) =>
+                                      FlSpot(e.key.toDouble(), e.value.value),
+                                )
                                 .toList(),
                             isCurved: true,
                             color: AppTheme.primaryColor,
@@ -353,14 +415,18 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 ),
                 child: Column(
                   children: paymentMethods.entries.map((e) {
-                    final percent = totalRevenue > 0 ? e.value / totalRevenue : 0.0;
+                    final percent = totalRevenue > 0
+                        ? e.value / totalRevenue
+                        : 0.0;
                     final colors = [
                       AppTheme.primaryColor,
                       AppTheme.accentColor,
                       AppTheme.infoColor,
                       AppTheme.warningColor,
                     ];
-                    final colorIdx = paymentMethods.keys.toList().indexOf(e.key) % colors.length;
+                    final colorIdx =
+                        paymentMethods.keys.toList().indexOf(e.key) %
+                        colors.length;
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 14),
                       child: Column(
@@ -398,18 +464,25 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                   borderRadius: BorderRadius.circular(4),
                                   child: LinearProgressIndicator(
                                     value: percent,
-                                    backgroundColor: colors[colorIdx].withOpacity(0.12),
-                                    valueColor: AlwaysStoppedAnimation(colors[colorIdx]),
+                                    backgroundColor: colors[colorIdx]
+                                        .withOpacity(0.12),
+                                    valueColor: AlwaysStoppedAnimation(
+                                      colors[colorIdx],
+                                    ),
                                     minHeight: 6,
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                CurrencyFormatter.formatCompact(e.value, currency: currency),
+                                CurrencyFormatter.formatCompact(
+                                  e.value,
+                                  currency: currency,
+                                ),
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.55),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.55),
                                 ),
                               ),
                             ],
@@ -440,7 +513,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/inventory_valuation.csv');
       await file.writeAsString(csv);
-      await Share.shareXFiles([XFile(file.path)], subject: 'Inventory Valuation Report');
+      await Share.shareXFiles([
+        XFile(file.path),
+      ], subject: 'Inventory Valuation Report');
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to export inventory CSV')),
@@ -454,7 +529,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/profit_loss.csv');
       await file.writeAsString(csv);
-      await Share.shareXFiles([XFile(file.path)], subject: 'Profit & Loss Report');
+      await Share.shareXFiles([
+        XFile(file.path),
+      ], subject: 'Profit & Loss Report');
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to export profit & loss CSV')),
@@ -468,7 +545,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/stock_movement.csv');
       await file.writeAsString(csv);
-      await Share.shareXFiles([XFile(file.path)], subject: 'Stock Movement Report');
+      await Share.shareXFiles([
+        XFile(file.path),
+      ], subject: 'Stock Movement Report');
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to export stock movement CSV')),
@@ -532,8 +611,11 @@ class _ReportActionTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded,
-                size: 18, color: theme.colorScheme.onSurface.withOpacity(0.3)),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 18,
+              color: theme.colorScheme.onSurface.withOpacity(0.3),
+            ),
           ],
         ),
       ),
@@ -564,7 +646,9 @@ class _TopProductTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+        border: Border.all(
+          color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
+        ),
       ),
       child: Row(
         children: [
@@ -583,7 +667,9 @@ class _TopProductTile extends StatelessWidget {
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
-                  color: rank == 1 ? AppTheme.warningColor : AppTheme.primaryColor,
+                  color: rank == 1
+                      ? AppTheme.warningColor
+                      : AppTheme.primaryColor,
                 ),
               ),
             ),
@@ -608,7 +694,9 @@ class _TopProductTile extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: progress,
                     backgroundColor: AppTheme.primaryColor.withOpacity(0.1),
-                    valueColor: const AlwaysStoppedAnimation(AppTheme.primaryColor),
+                    valueColor: const AlwaysStoppedAnimation(
+                      AppTheme.primaryColor,
+                    ),
                     minHeight: 4,
                   ),
                 ),

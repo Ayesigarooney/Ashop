@@ -41,7 +41,10 @@ class _ProductsScreenState extends State<ProductsScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Products',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list_rounded),
@@ -56,7 +59,10 @@ class _ProductsScreenState extends State<ProductsScreen>
             Tab(text: 'Low Stock'),
             Tab(text: 'Out of Stock'),
           ],
-          labelStyle: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, fontSize: 12),
+          labelStyle: GoogleFonts.plusJakartaSans(
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
           unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
           indicatorColor: AppTheme.primaryColor,
           labelColor: AppTheme.primaryColor,
@@ -83,7 +89,10 @@ class _ProductsScreenState extends State<ProductsScreen>
                         },
                       )
                     : null,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
               ),
               onChanged: (v) {
                 context.read<ProductCubit>().searchProducts(v);
@@ -115,7 +124,13 @@ class _ProductsScreenState extends State<ProductsScreen>
           ),
         ),
         icon: const Icon(Icons.add, size: 20),
-        label: Text('Add Product', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, fontSize: 14)),
+        label: Text(
+          'Add Product',
+          style: GoogleFonts.plusJakartaSans(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
         backgroundColor: AppTheme.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -149,7 +164,10 @@ class _ProductsScreenState extends State<ProductsScreen>
             const SizedBox(height: 16),
             Text(
               'Filter by Category',
-              style: GoogleFonts.plusJakartaSans(fontSize: 16, fontWeight: FontWeight.w700),
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 14),
             Wrap(
@@ -164,16 +182,21 @@ class _ProductsScreenState extends State<ProductsScreen>
                   child: Chip(
                     label: const Text('All'),
                     backgroundColor: AppTheme.primaryColor,
-                    labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    labelStyle: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                ...cats.map((c) => GestureDetector(
-                      onTap: () {
-                        context.read<ProductCubit>().filterByCategory(c);
-                        Navigator.pop(context);
-                      },
-                      child: Chip(label: Text(c)),
-                    )),
+                ...cats.map(
+                  (c) => GestureDetector(
+                    onTap: () {
+                      context.read<ProductCubit>().filterByCategory(c);
+                      Navigator.pop(context);
+                    },
+                    child: Chip(label: Text(c)),
+                  ),
+                ),
               ],
             ),
           ],
@@ -190,7 +213,9 @@ class _ProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currency = context.read<SettingsRepository>().currency;
-    final lowStockThreshold = context.read<SettingsRepository>().lowStockThreshold;
+    final lowStockThreshold = context
+        .read<SettingsRepository>()
+        .lowStockThreshold;
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) return const AshopLoading();
@@ -198,7 +223,13 @@ class _ProductList extends StatelessWidget {
           List<ProductModel> products;
           switch (filter) {
             case 'low':
-              products = state.products.where((p) => p.isLowStock(threshold: lowStockThreshold) && !p.isOutOfStock).toList();
+              products = state.products
+                  .where(
+                    (p) =>
+                        p.isLowStock(threshold: lowStockThreshold) &&
+                        !p.isOutOfStock,
+                  )
+                  .toList();
               break;
             case 'out':
               products = state.products.where((p) => p.isOutOfStock).toList();
@@ -215,22 +246,22 @@ class _ProductList extends StatelessWidget {
               title: filter == 'all'
                   ? 'No products'
                   : filter == 'low'
-                      ? 'No low stock items'
-                      : 'No out of stock items',
+                  ? 'No low stock items'
+                  : 'No out of stock items',
               subtitle: filter == 'all'
                   ? 'Add your first product to get started'
                   : 'Great! Everything is well stocked.',
               actionLabel: filter == 'all' ? 'Add Product' : null,
               onAction: filter == 'all'
                   ? () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                            value: context.read<ProductCubit>(),
-                            child: const AddEditProductScreen(),
-                          ),
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider.value(
+                          value: context.read<ProductCubit>(),
+                          child: const AddEditProductScreen(),
                         ),
-                      )
+                      ),
+                    )
                   : null,
             );
           }
@@ -293,8 +324,8 @@ class _ProductTile extends StatelessWidget {
             color: product.isOutOfStock
                 ? AppTheme.dangerColor.withOpacity(0.3)
                 : product.isLowStock(threshold: lowStockThreshold)
-                    ? AppTheme.warningColor.withOpacity(0.25)
-                    : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                ? AppTheme.warningColor.withOpacity(0.25)
+                : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           ),
         ),
         child: Row(
@@ -306,7 +337,11 @@ class _ProductTile extends StatelessWidget {
                 color: AppTheme.primaryColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.inventory_2_rounded, color: AppTheme.primaryColor, size: 24),
+              child: const Icon(
+                Icons.inventory_2_rounded,
+                color: AppTheme.primaryColor,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -345,7 +380,10 @@ class _ProductTile extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        CurrencyFormatter.format(product.sellingPrice, currency: currency),
+                        CurrencyFormatter.format(
+                          product.sellingPrice,
+                          currency: currency,
+                        ),
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,

@@ -20,25 +20,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     _OnboardingPage(
       icon: Icons.point_of_sale_rounded,
       title: 'Smart Shop Management',
-      description: 'Manage your shop inventory, process sales, and track business performance all in one place.',
+      description:
+          'Manage your shop inventory, process sales, and track business performance all in one place.',
       color: AppTheme.primaryColor,
     ),
     _OnboardingPage(
       icon: Icons.inventory_2_rounded,
       title: 'Track Inventory',
-      description: 'Add products, manage stock levels, and get alerts when items run low.',
+      description:
+          'Add products, manage stock levels, and get alerts when items run low.',
       color: AppTheme.accentColor,
     ),
     _OnboardingPage(
       icon: Icons.bar_chart_rounded,
       title: 'View Analytics',
-      description: 'Monitor sales trends, profit margins, and make data-driven decisions for your business.',
+      description:
+          'Monitor sales trends, profit margins, and make data-driven decisions for your business.',
       color: AppTheme.infoColor,
     ),
     _OnboardingPage(
       icon: Icons.receipt_long_rounded,
       title: 'Print Receipts & Invoices',
-      description: 'Generate professional receipts and invoices. Export reports to CSV for your records.',
+      description:
+          'Generate professional receipts and invoices. Export reports to CSV for your records.',
       color: AppTheme.successColor,
     ),
   ];
@@ -61,7 +65,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () => _finish(),
-                  child: const Text('Skip', style: TextStyle(color: Colors.white70)),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(color: Colors.white70),
+                  ),
                 ),
               ),
             Expanded(
@@ -80,7 +87,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   width: _currentPage == i ? 24 : 8,
                   height: 8,
                   decoration: BoxDecoration(
-                    color: _currentPage == i ? AppTheme.primaryColor : Colors.white24,
+                    color: _currentPage == i
+                        ? AppTheme.primaryColor
+                        : Colors.white24,
                     borderRadius: BorderRadius.circular(4),
                   ),
                 );
@@ -95,7 +104,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_currentPage < _pages.length - 1) {
-                      _controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                      _controller.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
                     } else {
                       _finish();
                     }
@@ -103,11 +115,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryColor,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                   child: Text(
                     _currentPage < _pages.length - 1 ? 'Next' : 'Get Started',
-                    style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+                    style: GoogleFonts.plusJakartaSans(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
@@ -177,5 +193,10 @@ class _OnboardingPage {
   final String title;
   final String description;
   final Color color;
-  const _OnboardingPage({required this.icon, required this.title, required this.description, required this.color});
+  const _OnboardingPage({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.color,
+  });
 }

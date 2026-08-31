@@ -38,7 +38,10 @@ final GoRouter appRouter = GoRouter(
   ),
   routes: [
     GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
-    GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingScreen()),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
     GoRoute(
       path: '/pin',
       builder: (context, state) {
@@ -47,7 +50,10 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(path: '/app', builder: (context, state) => const AppShell()),
-    GoRoute(path: '/order-history', builder: (context, state) => const OrderHistoryScreen()),
+    GoRoute(
+      path: '/order-history',
+      builder: (context, state) => const OrderHistoryScreen(),
+    ),
     GoRoute(
       path: '/receipt',
       builder: (context, state) {
@@ -75,7 +81,13 @@ final GoRouter appRouter = GoRouter(
         return ReceiptScreen(sale: sale);
       },
     ),
-    GoRoute(path: '/reports/profit-loss', builder: (context, state) => const ProfitLossScreen()),
-    GoRoute(path: '/reports/inventory-valuation', builder: (context, state) => const InventoryValuationScreen()),
+    GoRoute(
+      path: '/reports/profit-loss',
+      builder: (context, state) => const ProfitLossScreen(),
+    ),
+    GoRoute(
+      path: '/reports/inventory-valuation',
+      builder: (context, state) => const InventoryValuationScreen(),
+    ),
   ],
 );

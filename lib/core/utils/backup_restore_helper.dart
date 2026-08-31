@@ -59,6 +59,7 @@ class BackupRestoreHelper {
     // Optionally reset first launch flag
     settingsBox.put('first_launch', true);
   }
+
   /// Falls back to clipboard/text share on web.
   static Future<void> backupToFile() async {
     final jsonStr = await generateBackupJson();
@@ -78,10 +79,9 @@ class BackupRestoreHelper {
         final file = File('${tempDir.path}/ashop_backup_$timestamp.json');
         await file.writeAsString(jsonStr);
 
-        await Share.shareXFiles(
-          [XFile(file.path, mimeType: 'application/json')],
-          subject: '${AppConstants.appName} Database Backup',
-        );
+        await Share.shareXFiles([
+          XFile(file.path, mimeType: 'application/json'),
+        ], subject: '${AppConstants.appName} Database Backup');
       } catch (e) {
         // Fallback to text sharing if file sharing fails
         await Share.share(
@@ -106,7 +106,8 @@ class BackupRestoreHelper {
     // Validate header attributes
     if (decoded['app'] != AppConstants.appName) {
       throw const FormatException(
-          'This backup was created for a different app');
+        'This backup was created for a different app',
+      );
     }
 
     final backupVersion = decoded['version']?.toString();
@@ -115,9 +116,10 @@ class BackupRestoreHelper {
     }
     if (_isNewerVersion(backupVersion, AppConstants.appVersion)) {
       throw FormatException(
-          'Backup is from a newer app version ($backupVersion) than the '
-          'installed version (${AppConstants.appVersion}). '
-          'Please update the app before restoring.');
+        'Backup is from a newer app version ($backupVersion) than the '
+        'installed version (${AppConstants.appVersion}). '
+        'Please update the app before restoring.',
+      );
     }
 
     // --- Phase 1: Parse everything into memory first. No box is touched yet.
@@ -300,7 +302,10 @@ class BackupRestoreHelper {
   }
 
   /// Export a CSV string to a temporary file and share it
-  static Future<void> exportCsvToFile(String csvContent, String filename) async {
+  static Future<void> exportCsvToFile(
+    String csvContent,
+    String filename,
+  ) async {
     if (kIsWeb) {
       // On web just share text
       await Share.share(csvContent, subject: filename);
@@ -312,10 +317,9 @@ class BackupRestoreHelper {
     final file = File(filePath);
     await file.writeAsString(csvContent);
     try {
-      await Share.shareXFiles(
-        [XFile(file.path, mimeType: 'text/csv')],
-        subject: filename,
-      );
+      await Share.shareXFiles([
+        XFile(file.path, mimeType: 'text/csv'),
+      ], subject: filename);
     } catch (_) {
       await Share.share(csvContent, subject: filename);
     }

@@ -8,7 +8,9 @@ final GetIt locator = GetIt.instance;
 
 void setupLocator() {
   if (!locator.isRegistered<SettingsRepository>()) {
-    locator.registerLazySingleton<SettingsRepository>(() => SettingsRepository());
+    locator.registerLazySingleton<SettingsRepository>(
+      () => SettingsRepository(),
+    );
   }
   if (!locator.isRegistered<ProductRepository>()) {
     locator.registerLazySingleton<ProductRepository>(() => ProductRepository());

@@ -68,22 +68,22 @@ class SaleModel extends HiveObject {
   });
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'receipt_number': receiptNumber,
-        'items': items.map((e) => e.toMap()).toList(),
-        'subtotal': subtotal,
-        'discount_amount': discountAmount,
-        'tax_amount': taxAmount,
-        'total': total,
-        'amount_paid': amountPaid,
-        'change': change,
-        'payment_method': paymentMethod,
-        'created_at': createdAt.toIso8601String(),
-        'customer_name': customerName,
-        'notes': notes,
-        'is_refunded': isRefunded,
-        'refunded_at': refundedAt?.toIso8601String(),
-      };
+    'id': id,
+    'receipt_number': receiptNumber,
+    'items': items.map((e) => e.toMap()).toList(),
+    'subtotal': subtotal,
+    'discount_amount': discountAmount,
+    'tax_amount': taxAmount,
+    'total': total,
+    'amount_paid': amountPaid,
+    'change': change,
+    'payment_method': paymentMethod,
+    'created_at': createdAt.toIso8601String(),
+    'customer_name': customerName,
+    'notes': notes,
+    'is_refunded': isRefunded,
+    'refunded_at': refundedAt?.toIso8601String(),
+  };
 
   factory SaleModel.fromMap(Map<String, dynamic> map) {
     return SaleModel(
@@ -103,7 +103,9 @@ class SaleModel extends HiveObject {
       customerName: map['customer_name'],
       notes: map['notes'],
       isRefunded: map['is_refunded'] ?? false,
-      refundedAt: map['refunded_at'] != null ? DateTime.parse(map['refunded_at']) : null,
+      refundedAt: map['refunded_at'] != null
+          ? DateTime.parse(map['refunded_at'])
+          : null,
     );
   }
 }
@@ -148,15 +150,15 @@ class SaleItemModel extends HiveObject {
   double get profit => (unitPrice - costPrice) * quantity;
 
   Map<String, dynamic> toMap() => {
-        'product_id': productId,
-        'product_name': productName,
-        'unit_price': unitPrice,
-        'quantity': quantity,
-        'total_price': totalPrice,
-        'discount_percent': discountPercent,
-        'note': note,
-        'cost_price': costPrice,
-      };
+    'product_id': productId,
+    'product_name': productName,
+    'unit_price': unitPrice,
+    'quantity': quantity,
+    'total_price': totalPrice,
+    'discount_percent': discountPercent,
+    'note': note,
+    'cost_price': costPrice,
+  };
 
   factory SaleItemModel.fromMap(Map<String, dynamic> map) {
     return SaleItemModel(

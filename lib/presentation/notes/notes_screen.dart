@@ -19,7 +19,14 @@ class _NotesScreenState extends State<NotesScreen> {
   final _searchCtrl = TextEditingController();
   String _selectedCategory = 'All';
 
-  final List<String> _categories = ['All', 'General', 'Todo', 'Supplier', 'Customer', 'Idea'];
+  final List<String> _categories = [
+    'All',
+    'General',
+    'Todo',
+    'Supplier',
+    'Customer',
+    'Idea',
+  ];
 
   @override
   void dispose() {
@@ -34,7 +41,10 @@ class _NotesScreenState extends State<NotesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Business Notes', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Business Notes',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.help_outline_rounded),
@@ -63,7 +73,10 @@ class _NotesScreenState extends State<NotesScreen> {
                         },
                       )
                     : null,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
               ),
               onChanged: (v) {
                 context.read<NoteCubit>().searchNotes(v);
@@ -87,10 +100,15 @@ class _NotesScreenState extends State<NotesScreen> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() => _selectedCategory = cat);
-                      context.read<NoteCubit>().filterByCategory(cat == 'All' ? null : cat);
+                      context.read<NoteCubit>().filterByCategory(
+                        cat == 'All' ? null : cat,
+                      );
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         gradient: isSelected ? AppTheme.primaryGradient : null,
                         color: isSelected
@@ -100,7 +118,9 @@ class _NotesScreenState extends State<NotesScreen> {
                         border: Border.all(
                           color: isSelected
                               ? Colors.transparent
-                              : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                              : (isDark
+                                    ? AppTheme.darkBorder
+                                    : AppTheme.lightBorder),
                         ),
                       ),
                       child: Center(
@@ -108,10 +128,14 @@ class _NotesScreenState extends State<NotesScreen> {
                           cat,
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: 12,
-                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                            fontWeight: isSelected
+                                ? FontWeight.w700
+                                : FontWeight.w500,
                             color: isSelected
                                 ? Colors.white
-                                : (isDark ? AppTheme.darkText : AppTheme.lightText),
+                                : (isDark
+                                      ? AppTheme.darkText
+                                      : AppTheme.lightText),
                           ),
                         ),
                       ),
@@ -138,16 +162,22 @@ class _NotesScreenState extends State<NotesScreen> {
                   if (notes.isEmpty) {
                     return EmptyState(
                       icon: Icons.note_alt_outlined,
-                      title: _searchCtrl.text.isNotEmpty || _selectedCategory != 'All'
+                      title:
+                          _searchCtrl.text.isNotEmpty ||
+                              _selectedCategory != 'All'
                           ? 'No matching notes'
                           : 'No business notes yet',
-                      subtitle: _searchCtrl.text.isNotEmpty || _selectedCategory != 'All'
+                      subtitle:
+                          _searchCtrl.text.isNotEmpty ||
+                              _selectedCategory != 'All'
                           ? 'Try changing your search terms or filter category'
                           : 'Keep record of key supplier negotiations, customer requests, or quick task checklists.',
-                      actionLabel: _searchCtrl.text.isEmpty && _selectedCategory == 'All'
+                      actionLabel:
+                          _searchCtrl.text.isEmpty && _selectedCategory == 'All'
                           ? 'Create a Note'
                           : null,
-                      onAction: _searchCtrl.text.isEmpty && _selectedCategory == 'All'
+                      onAction:
+                          _searchCtrl.text.isEmpty && _selectedCategory == 'All'
                           ? () => _openNoteEditor(context)
                           : null,
                     );
@@ -159,7 +189,10 @@ class _NotesScreenState extends State<NotesScreen> {
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                     itemBuilder: (ctx, index) {
                       final note = notes[index];
-                      final colors = NoteUtils.getNoteColors(note.colorIndex, isDark);
+                      final colors = NoteUtils.getNoteColors(
+                        note.colorIndex,
+                        isDark,
+                      );
 
                       return Dismissible(
                         key: Key(note.id),
@@ -171,14 +204,20 @@ class _NotesScreenState extends State<NotesScreen> {
                             color: AppTheme.dangerColor,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Icon(Icons.delete_outline_rounded, color: Colors.white, size: 28),
+                          child: const Icon(
+                            Icons.delete_outline_rounded,
+                            color: Colors.white,
+                            size: 28,
+                          ),
                         ),
                         confirmDismiss: (dir) => _confirmDelete(context, note),
                         onDismissed: (_) {
                           context.read<NoteCubit>().deleteNote(note.id);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Note "${note.title.isNotEmpty ? note.title : 'Untitled'}" deleted'),
+                              content: Text(
+                                'Note "${note.title.isNotEmpty ? note.title : 'Untitled'}" deleted',
+                              ),
                               behavior: SnackBarBehavior.floating,
                             ),
                           );
@@ -189,10 +228,15 @@ class _NotesScreenState extends State<NotesScreen> {
                             decoration: BoxDecoration(
                               color: colors['bg'],
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: colors['border']!, width: 1.2),
+                              border: Border.all(
+                                color: colors['border']!,
+                                width: 1.2,
+                              ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
+                                  color: Colors.black.withValues(
+                                    alpha: isDark ? 0.2 : 0.04,
+                                  ),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -211,21 +255,34 @@ class _NotesScreenState extends State<NotesScreen> {
                                     child: Container(color: colors['accent']),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(18, 16, 16, 16),
+                                    padding: const EdgeInsets.fromLTRB(
+                                      18,
+                                      16,
+                                      16,
+                                      16,
+                                    ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                note.title.isNotEmpty ? note.title : 'Untitled Note',
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: isDark ? AppTheme.darkText : AppTheme.lightText,
-                                                ),
+                                                note.title.isNotEmpty
+                                                    ? note.title
+                                                    : 'Untitled Note',
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: isDark
+                                                          ? AppTheme.darkText
+                                                          : AppTheme.lightText,
+                                                    ),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -239,11 +296,19 @@ class _NotesScreenState extends State<NotesScreen> {
                                               ),
                                             const SizedBox(width: 4),
                                             GestureDetector(
-                                              onTap: () => _showQuickOptions(context, note),
+                                              onTap: () => _showQuickOptions(
+                                                context,
+                                                note,
+                                              ),
                                               child: Icon(
                                                 Icons.more_vert_rounded,
-                                                color: (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub)
-                                                    .withValues(alpha: 0.6),
+                                                color:
+                                                    (isDark
+                                                            ? AppTheme
+                                                                  .darkTextSub
+                                                            : AppTheme
+                                                                  .lightTextSub)
+                                                        .withValues(alpha: 0.6),
                                                 size: 20,
                                               ),
                                             ),
@@ -251,37 +316,56 @@ class _NotesScreenState extends State<NotesScreen> {
                                         ),
                                         const SizedBox(height: 6),
                                         Text(
-                                          note.content.isNotEmpty ? note.content : 'No additional text...',
+                                          note.content.isNotEmpty
+                                              ? note.content
+                                              : 'No additional text...',
                                           style: GoogleFonts.inter(
                                             fontSize: 12.5,
                                             height: 1.4,
-                                            color: (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub),
+                                            color: (isDark
+                                                ? AppTheme.darkTextSub
+                                                : AppTheme.lightTextSub),
                                           ),
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         const SizedBox(height: 12),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             // Category Pill
                                             Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 3,
+                                                  ),
                                               decoration: BoxDecoration(
-                                                color: colors['accent']!.withValues(alpha: isDark ? 0.2 : 0.1),
-                                                borderRadius: BorderRadius.circular(10),
+                                                color: colors['accent']!
+                                                    .withValues(
+                                                      alpha: isDark ? 0.2 : 0.1,
+                                                    ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 border: Border.all(
-                                                  color: colors['accent']!.withValues(alpha: 0.3),
+                                                  color: colors['accent']!
+                                                      .withValues(alpha: 0.3),
                                                   width: 0.5,
                                                 ),
                                               ),
                                               child: Text(
                                                 note.category,
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  fontSize: 9.5,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: isDark ? colors['accent'] : colors['accent']!.darken(),
-                                                ),
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                      fontSize: 9.5,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: isDark
+                                                          ? colors['accent']
+                                                          : colors['accent']!
+                                                                .darken(),
+                                                    ),
                                               ),
                                             ),
                                             // Timestamp
@@ -289,8 +373,13 @@ class _NotesScreenState extends State<NotesScreen> {
                                               _formatNoteDate(note.updatedAt),
                                               style: GoogleFonts.inter(
                                                 fontSize: 11,
-                                                color: (isDark ? AppTheme.darkTextSub : AppTheme.lightTextSub)
-                                                    .withValues(alpha: 0.5),
+                                                color:
+                                                    (isDark
+                                                            ? AppTheme
+                                                                  .darkTextSub
+                                                            : AppTheme
+                                                                  .lightTextSub)
+                                                        .withValues(alpha: 0.5),
                                               ),
                                             ),
                                           ],
@@ -312,7 +401,10 @@ class _NotesScreenState extends State<NotesScreen> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(24),
-                      child: Text('Error: ${state.message}', style: const TextStyle(color: Colors.red)),
+                      child: Text(
+                        'Error: ${state.message}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     ),
                   );
                 }
@@ -329,7 +421,10 @@ class _NotesScreenState extends State<NotesScreen> {
         icon: const Icon(Icons.add, size: 20),
         label: Text(
           'New Note',
-          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, fontSize: 14),
+          style: GoogleFonts.plusJakartaSans(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
         ),
         backgroundColor: AppTheme.primaryColor,
         foregroundColor: Colors.white,
@@ -364,7 +459,9 @@ class _NotesScreenState extends State<NotesScreen> {
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(dialogCtx, true),
-            style: ElevatedButton.styleFrom(backgroundColor: AppTheme.dangerColor),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppTheme.dangerColor,
+            ),
             child: const Text('Delete'),
           ),
         ],
@@ -387,7 +484,9 @@ class _NotesScreenState extends State<NotesScreen> {
             children: [
               ListTile(
                 leading: Icon(
-                  note.isPinned ? Icons.push_pin_rounded : Icons.push_pin_outlined,
+                  note.isPinned
+                      ? Icons.push_pin_rounded
+                      : Icons.push_pin_outlined,
                   color: AppTheme.primaryColor,
                 ),
                 title: Text(note.isPinned ? 'Unpin Note' : 'Pin Note'),
@@ -405,7 +504,10 @@ class _NotesScreenState extends State<NotesScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.picture_as_pdf_rounded, color: Colors.red),
+                leading: const Icon(
+                  Icons.picture_as_pdf_rounded,
+                  color: Colors.red,
+                ),
                 title: const Text('Print / Export as PDF (.pdf)'),
                 onTap: () {
                   Navigator.pop(sheetCtx);
@@ -414,7 +516,10 @@ class _NotesScreenState extends State<NotesScreen> {
               ),
               const Divider(),
               ListTile(
-                leading: const Icon(Icons.delete_outline_rounded, color: AppTheme.dangerColor),
+                leading: const Icon(
+                  Icons.delete_outline_rounded,
+                  color: AppTheme.dangerColor,
+                ),
                 title: const Text('Delete Note'),
                 onTap: () async {
                   Navigator.pop(sheetCtx);
@@ -446,7 +551,10 @@ class _NotesScreenState extends State<NotesScreen> {
     showDialog(
       context: context,
       builder: (dialogCtx) => AlertDialog(
-        title: Text('Business Notepad', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold)),
+        title: Text(
+          'Business Notepad',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold),
+        ),
         content: Text(
           'Keep your thoughts organized. Categorize daily business tasks, supplier contacts, and client requirements. Notes are stored securely and encrypted locally.',
           style: GoogleFonts.inter(height: 1.5, fontSize: 13.5),

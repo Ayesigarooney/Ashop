@@ -3,7 +3,8 @@ class NoteModel {
   final String title;
   final String content;
   final String category; // 'General', 'Todo', 'Supplier', 'Customer', 'Idea'
-  final int colorIndex; // 0: Purple/Primary, 1: Teal, 2: Yellow/Amber, 3: Red/Pink, 4: Slate/Grey
+  final int
+  colorIndex; // 0: Purple/Primary, 1: Teal, 2: Yellow/Amber, 3: Red/Pink, 4: Slate/Grey
   final DateTime createdAt;
   final DateTime updatedAt;
   final bool isPinned;

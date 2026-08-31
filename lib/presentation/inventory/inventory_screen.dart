@@ -14,11 +14,16 @@ class InventoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currency = context.read<SettingsRepository>().currency;
-    final lowStockThreshold = context.read<SettingsRepository>().lowStockThreshold;
+    final lowStockThreshold = context
+        .read<SettingsRepository>()
+        .lowStockThreshold;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inventory', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Inventory',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
       ),
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
@@ -26,9 +31,21 @@ class InventoryScreen extends StatelessWidget {
           if (state is! ProductLoaded) return const AshopLoading();
 
           final products = state.products;
-          final totalValue = products.fold(0.0, (sum, p) => sum + p.costPrice * p.stockQuantity);
-          final totalRetailValue = products.fold(0.0, (sum, p) => sum + p.sellingPrice * p.stockQuantity);
-          final lowCount = products.where((p) => p.isLowStock(threshold: lowStockThreshold) && !p.isOutOfStock).length;
+          final totalValue = products.fold(
+            0.0,
+            (sum, p) => sum + p.costPrice * p.stockQuantity,
+          );
+          final totalRetailValue = products.fold(
+            0.0,
+            (sum, p) => sum + p.sellingPrice * p.stockQuantity,
+          );
+          final lowCount = products
+              .where(
+                (p) =>
+                    p.isLowStock(threshold: lowStockThreshold) &&
+                    !p.isOutOfStock,
+              )
+              .length;
           final outCount = products.where((p) => p.isOutOfStock).length;
 
           return Column(
@@ -61,7 +78,10 @@ class InventoryScreen extends StatelessWidget {
                                 fit: BoxFit.scaleDown,
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  CurrencyFormatter.format(totalValue, currency: currency),
+                                  CurrencyFormatter.format(
+                                    totalValue,
+                                    currency: currency,
+                                  ),
                                   style: GoogleFonts.plusJakartaSans(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
@@ -72,7 +92,11 @@ class InventoryScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(width: 1, height: 36, color: Colors.white.withOpacity(0.25)),
+                        Container(
+                          width: 1,
+                          height: 36,
+                          color: Colors.white.withOpacity(0.25),
+                        ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
@@ -90,7 +114,10 @@ class InventoryScreen extends StatelessWidget {
                                 fit: BoxFit.scaleDown,
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  CurrencyFormatter.format(totalRetailValue, currency: currency),
+                                  CurrencyFormatter.format(
+                                    totalRetailValue,
+                                    currency: currency,
+                                  ),
                                   style: GoogleFonts.plusJakartaSans(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
@@ -106,7 +133,10 @@ class InventoryScreen extends StatelessWidget {
                     if (lowCount > 0 || outCount > 0) ...[
                       const SizedBox(height: 12),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(10),
@@ -117,8 +147,11 @@ class InventoryScreen extends StatelessWidget {
                             if (outCount > 0)
                               Row(
                                 children: [
-                                  const Icon(Icons.remove_shopping_cart_rounded,
-                                      color: Colors.white, size: 14),
+                                  const Icon(
+                                    Icons.remove_shopping_cart_rounded,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
                                   const SizedBox(width: 4),
                                   Text(
                                     '$outCount out of stock',
@@ -133,8 +166,11 @@ class InventoryScreen extends StatelessWidget {
                             if (lowCount > 0)
                               Row(
                                 children: [
-                                  const Icon(Icons.warning_amber_rounded,
-                                      color: Colors.white, size: 14),
+                                  const Icon(
+                                    Icons.warning_amber_rounded,
+                                    color: Colors.white,
+                                    size: 14,
+                                  ),
                                   const SizedBox(width: 4),
                                   Text(
                                     '$lowCount low stock',
@@ -206,8 +242,8 @@ class _InventoryTile extends StatelessWidget {
     final stockColor = product.isOutOfStock
         ? AppTheme.dangerColor
         : product.isLowStock(threshold: lowStockThreshold)
-            ? AppTheme.warningColor
-            : AppTheme.successColor;
+        ? AppTheme.warningColor
+        : AppTheme.successColor;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -218,8 +254,8 @@ class _InventoryTile extends StatelessWidget {
           color: product.isOutOfStock
               ? AppTheme.dangerColor.withOpacity(0.25)
               : product.isLowStock(threshold: lowStockThreshold)
-                  ? AppTheme.warningColor.withOpacity(0.2)
-                  : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+              ? AppTheme.warningColor.withOpacity(0.2)
+              : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
         ),
       ),
       child: Row(

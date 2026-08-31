@@ -4,7 +4,8 @@ import '../models/product_model.dart';
 import '../../../../core/config/constants.dart';
 
 class ProductRepository {
-  Box<ProductModel> get _box => Hive.box<ProductModel>(AppConstants.productsBox);
+  Box<ProductModel> get _box =>
+      Hive.box<ProductModel>(AppConstants.productsBox);
   final _uuid = const Uuid();
 
   List<ProductModel> getAllProducts() {
@@ -14,11 +15,15 @@ class ProductRepository {
 
   List<ProductModel> searchProducts(String query) {
     final q = query.toLowerCase();
-    return _box.values.where((p) =>
-        p.isActive &&
-        (p.name.toLowerCase().contains(q) ||
-            (p.barcode?.contains(q) ?? false) ||
-            p.category.toLowerCase().contains(q))).toList();
+    return _box.values
+        .where(
+          (p) =>
+              p.isActive &&
+              (p.name.toLowerCase().contains(q) ||
+                  (p.barcode?.contains(q) ?? false) ||
+                  p.category.toLowerCase().contains(q)),
+        )
+        .toList();
   }
 
   ProductModel? getProductById(String id) {
@@ -99,12 +104,17 @@ class ProductRepository {
 
   List<ProductModel> getLowStockProducts({int threshold = 5}) {
     return _box.values
-        .where((p) => p.isActive && p.stockQuantity <= threshold && p.stockQuantity > 0)
+        .where(
+          (p) =>
+              p.isActive && p.stockQuantity <= threshold && p.stockQuantity > 0,
+        )
         .toList();
   }
 
   List<ProductModel> getOutOfStockProducts() {
-    return _box.values.where((p) => p.isActive && p.stockQuantity <= 0).toList();
+    return _box.values
+        .where((p) => p.isActive && p.stockQuantity <= 0)
+        .toList();
   }
 
   List<String> getCategories() {

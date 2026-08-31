@@ -34,7 +34,10 @@ class InventoryValuationScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inventory Valuation', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Inventory Valuation',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.download_rounded),
@@ -48,17 +51,43 @@ class InventoryValuationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ValCard(title: 'Total Products', value: '${products.length}', icon: Icons.inventory_2_rounded, color: AppTheme.primaryColor),
+            _ValCard(
+              title: 'Total Products',
+              value: '${products.length}',
+              icon: Icons.inventory_2_rounded,
+              color: AppTheme.primaryColor,
+            ),
             const SizedBox(height: 10),
-            _ValCard(title: 'Cost Value', value: CurrencyFormatter.format(totalCost, currency: currency), icon: Icons.money_rounded, color: AppTheme.warningColor),
+            _ValCard(
+              title: 'Cost Value',
+              value: CurrencyFormatter.format(totalCost, currency: currency),
+              icon: Icons.money_rounded,
+              color: AppTheme.warningColor,
+            ),
             const SizedBox(height: 10),
-            _ValCard(title: 'Retail Value', value: CurrencyFormatter.format(totalRetail, currency: currency), icon: Icons.sell_rounded, color: AppTheme.infoColor),
+            _ValCard(
+              title: 'Retail Value',
+              value: CurrencyFormatter.format(totalRetail, currency: currency),
+              icon: Icons.sell_rounded,
+              color: AppTheme.infoColor,
+            ),
             const SizedBox(height: 10),
-            _ValCard(title: 'Potential Profit', value: CurrencyFormatter.format(potentialProfit, currency: currency), icon: Icons.trending_up_rounded, color: AppTheme.successColor),
+            _ValCard(
+              title: 'Potential Profit',
+              value: CurrencyFormatter.format(
+                potentialProfit,
+                currency: currency,
+              ),
+              icon: Icons.trending_up_rounded,
+              color: AppTheme.successColor,
+            ),
             const SizedBox(height: 24),
             Text(
               'Products Breakdown',
-              style: GoogleFonts.plusJakartaSans(fontSize: 15, fontWeight: FontWeight.w700),
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 8),
             ...products.map((p) {
@@ -70,7 +99,9 @@ class InventoryValuationScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                  border: Border.all(
+                    color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -78,16 +109,41 @@ class InventoryValuationScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(p.name, style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600)),
-                          Text('Qty: ${p.stockQuantity}', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                          Text(
+                            p.name,
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            'Qty: ${p.stockQuantity}',
+                            style: GoogleFonts.inter(
+                              fontSize: 11,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(CurrencyFormatter.format(costVal, currency: currency), style: GoogleFonts.inter(fontSize: 11)),
-                        Text(CurrencyFormatter.format(retailVal, currency: currency), style: GoogleFonts.plusJakartaSans(fontSize: 12, fontWeight: FontWeight.w700, color: AppTheme.primaryColor)),
+                        Text(
+                          CurrencyFormatter.format(costVal, currency: currency),
+                          style: GoogleFonts.inter(fontSize: 11),
+                        ),
+                        Text(
+                          CurrencyFormatter.format(
+                            retailVal,
+                            currency: currency,
+                          ),
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: AppTheme.primaryColor,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -114,7 +170,12 @@ class _ValCard extends StatelessWidget {
   final String value;
   final IconData icon;
   final Color color;
-  const _ValCard({required this.title, required this.value, required this.icon, required this.color});
+  const _ValCard({
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +191,10 @@ class _ValCard extends StatelessWidget {
           Container(
             width: 40,
             height: 40,
-            decoration: BoxDecoration(color: color.withOpacity(0.15), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Icon(icon, color: color, size: 20),
           ),
           const SizedBox(width: 12),
@@ -138,9 +202,19 @@ class _ValCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                Text(
+                  title,
+                  style: GoogleFonts.inter(fontSize: 11, color: Colors.grey),
+                ),
                 const SizedBox(height: 2),
-                Text(value, style: GoogleFonts.plusJakartaSans(fontSize: 16, fontWeight: FontWeight.w800, color: color)),
+                Text(
+                  value,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: color,
+                  ),
+                ),
               ],
             ),
           ),

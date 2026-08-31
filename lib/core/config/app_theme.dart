@@ -77,14 +77,22 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: AppFonts.heading(fontSize: 15, fontWeight: FontWeight.w700),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: AppFonts.heading(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
-          textStyle: AppFonts.heading(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: AppFonts.heading(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -92,14 +100,22 @@ class AppTheme {
           foregroundColor: primaryColor,
           side: const BorderSide(color: primaryColor),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: AppFonts.heading(fontSize: 15, fontWeight: FontWeight.w600),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: AppFonts.heading(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: darkCardAlt,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -129,7 +145,11 @@ class AppTheme {
       dividerTheme: const DividerThemeData(color: darkDivider, thickness: 1),
       chipTheme: ChipThemeData(
         backgroundColor: darkCardAlt,
-        labelStyle: AppFonts.body(fontSize: 12, fontWeight: FontWeight.w600, color: darkText),
+        labelStyle: AppFonts.body(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: darkText,
+        ),
         side: const BorderSide(color: darkBorder),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -142,7 +162,11 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: darkCard,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        titleTextStyle: AppFonts.heading(fontSize: 17, fontWeight: FontWeight.w700, color: darkText),
+        titleTextStyle: AppFonts.heading(
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+          color: darkText,
+        ),
         contentTextStyle: AppFonts.body(fontSize: 14, color: darkTextSub),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
@@ -152,22 +176,32 @@ class AppTheme {
         ),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) =>
-            states.contains(MaterialState.selected) ? primaryColor : darkTextSub),
-        trackColor: MaterialStateProperty.resolveWith((states) =>
-            states.contains(MaterialState.selected)
-                ? primaryColor.withOpacity(0.4)
-                : darkCardAlt),
+        thumbColor: MaterialStateProperty.resolveWith(
+          (states) => states.contains(MaterialState.selected)
+              ? primaryColor
+              : darkTextSub,
+        ),
+        trackColor: MaterialStateProperty.resolveWith(
+          (states) => states.contains(MaterialState.selected)
+              ? primaryColor.withOpacity(0.4)
+              : darkCardAlt,
+        ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         elevation: 4,
-        extendedTextStyle: AppFonts.heading(fontSize: 14, fontWeight: FontWeight.w700),
+        extendedTextStyle: AppFonts.heading(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       tabBarTheme: TabBarThemeData(
         labelStyle: AppFonts.heading(fontSize: 13, fontWeight: FontWeight.w700),
-        unselectedLabelStyle: AppFonts.body(fontSize: 13, fontWeight: FontWeight.w500),
+        unselectedLabelStyle: AppFonts.body(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
@@ -216,14 +250,22 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: AppFonts.heading(fontSize: 15, fontWeight: FontWeight.w700),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: AppFonts.heading(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
-          textStyle: AppFonts.heading(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: AppFonts.heading(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -231,14 +273,22 @@ class AppTheme {
           foregroundColor: primaryColor,
           side: const BorderSide(color: primaryColor),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: AppFonts.heading(fontSize: 15, fontWeight: FontWeight.w600),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textStyle: AppFonts.heading(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -264,7 +314,11 @@ class AppTheme {
       dividerTheme: const DividerThemeData(color: lightDivider, thickness: 1),
       chipTheme: ChipThemeData(
         backgroundColor: lightBg,
-        labelStyle: AppFonts.body(fontSize: 12, fontWeight: FontWeight.w600, color: lightText),
+        labelStyle: AppFonts.body(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: lightText,
+        ),
         side: const BorderSide(color: lightBorder),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -277,7 +331,11 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: lightCard,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        titleTextStyle: AppFonts.heading(fontSize: 17, fontWeight: FontWeight.w700, color: lightText),
+        titleTextStyle: AppFonts.heading(
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+          color: lightText,
+        ),
         contentTextStyle: AppFonts.body(fontSize: 14, color: lightTextSub),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
@@ -290,43 +348,49 @@ class AppTheme {
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         elevation: 4,
-        extendedTextStyle: AppFonts.heading(fontSize: 14, fontWeight: FontWeight.w700),
+        extendedTextStyle: AppFonts.heading(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       tabBarTheme: TabBarThemeData(
         labelStyle: AppFonts.heading(fontSize: 13, fontWeight: FontWeight.w700),
-        unselectedLabelStyle: AppFonts.body(fontSize: 13, fontWeight: FontWeight.w500),
+        unselectedLabelStyle: AppFonts.body(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
 
   // Gradient Helpers
   static LinearGradient get primaryGradient => const LinearGradient(
-        colors: [primaryColor, primaryLight],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
+    colors: [primaryColor, primaryLight],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static LinearGradient get accentGradient => const LinearGradient(
-        colors: [accentColor, Color(0xFF00FFB3)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
+    colors: [accentColor, Color(0xFF00FFB3)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static LinearGradient get successGradient => const LinearGradient(
-        colors: [successColor, Color(0xFF58E691)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
+    colors: [successColor, Color(0xFF58E691)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static LinearGradient get dangerGradient => const LinearGradient(
-        colors: [dangerColor, Color(0xFFFF8F96)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      );
+    colors: [dangerColor, Color(0xFFFF8F96)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static BoxDecoration get glassDecoration => BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white.withOpacity(0.05),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
-      );
+    borderRadius: BorderRadius.circular(16),
+    color: Colors.white.withOpacity(0.05),
+    border: Border.all(color: Colors.white.withOpacity(0.1)),
+  );
 }

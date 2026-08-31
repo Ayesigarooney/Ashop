@@ -20,11 +20,16 @@ class ProductDetailScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final currency = context.read<SettingsRepository>().currency;
-    final lowStockThreshold = context.read<SettingsRepository>().lowStockThreshold;
+    final lowStockThreshold = context
+        .read<SettingsRepository>()
+        .lowStockThreshold;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Details', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Product Details',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_rounded),
@@ -67,7 +72,11 @@ class ProductDetailScreen extends StatelessWidget {
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Icon(Icons.inventory_2_rounded, color: Colors.white, size: 32),
+                    child: const Icon(
+                      Icons.inventory_2_rounded,
+                      color: Colors.white,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
@@ -88,7 +97,10 @@ class ProductDetailScreen extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(6),
@@ -105,7 +117,10 @@ class ProductDetailScreen extends StatelessWidget {
                             if (product.unit != null) ...[
                               const SizedBox(width: 6),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 3,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(6),
@@ -137,7 +152,10 @@ class ProductDetailScreen extends StatelessWidget {
                 Expanded(
                   child: _InfoCard(
                     title: 'Selling Price',
-                    value: CurrencyFormatter.format(product.sellingPrice, currency: currency),
+                    value: CurrencyFormatter.format(
+                      product.sellingPrice,
+                      currency: currency,
+                    ),
                     icon: Icons.sell_rounded,
                     color: AppTheme.primaryColor,
                   ),
@@ -146,7 +164,10 @@ class ProductDetailScreen extends StatelessWidget {
                 Expanded(
                   child: _InfoCard(
                     title: 'Cost Price',
-                    value: CurrencyFormatter.format(product.costPrice, currency: currency),
+                    value: CurrencyFormatter.format(
+                      product.costPrice,
+                      currency: currency,
+                    ),
                     icon: Icons.shopping_bag_rounded,
                     color: AppTheme.infoColor,
                   ),
@@ -159,9 +180,14 @@ class ProductDetailScreen extends StatelessWidget {
                 Expanded(
                   child: _InfoCard(
                     title: 'Profit/Unit',
-                    value: CurrencyFormatter.format(product.profit, currency: currency),
+                    value: CurrencyFormatter.format(
+                      product.profit,
+                      currency: currency,
+                    ),
                     icon: Icons.trending_up_rounded,
-                    color: product.profit >= 0 ? AppTheme.successColor : AppTheme.dangerColor,
+                    color: product.profit >= 0
+                        ? AppTheme.successColor
+                        : AppTheme.dangerColor,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -188,8 +214,8 @@ class ProductDetailScreen extends StatelessWidget {
                   color: product.isOutOfStock
                       ? AppTheme.dangerColor.withOpacity(0.3)
                       : product.isLowStock(threshold: lowStockThreshold)
-                          ? AppTheme.warningColor.withOpacity(0.3)
-                          : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                      ? AppTheme.warningColor.withOpacity(0.3)
+                      : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
                 ),
               ),
               child: Row(
@@ -217,11 +243,20 @@ class ProductDetailScreen extends StatelessWidget {
                     ],
                   ),
                   if (product.isOutOfStock)
-                    StatusBadge(label: 'Out of Stock', color: AppTheme.dangerColor)
+                    StatusBadge(
+                      label: 'Out of Stock',
+                      color: AppTheme.dangerColor,
+                    )
                   else if (product.isLowStock(threshold: lowStockThreshold))
-                    StatusBadge(label: 'Low Stock', color: AppTheme.warningColor)
+                    StatusBadge(
+                      label: 'Low Stock',
+                      color: AppTheme.warningColor,
+                    )
                   else
-                    StatusBadge(label: 'In Stock', color: AppTheme.successColor),
+                    StatusBadge(
+                      label: 'In Stock',
+                      color: AppTheme.successColor,
+                    ),
                 ],
               ),
             ),
@@ -248,7 +283,9 @@ class ProductDetailScreen extends StatelessWidget {
                     onPressed: () => _adjustStock(context, 1),
                     icon: const Icon(Icons.add, size: 16),
                     label: const Text('Add Stock'),
-                    style: ElevatedButton.styleFrom(backgroundColor: AppTheme.successColor),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.successColor,
+                    ),
                   ),
                 ),
               ],
@@ -261,16 +298,25 @@ class ProductDetailScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                  border: Border.all(
+                    color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
+                  ),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.qr_code_rounded, color: AppTheme.primaryColor, size: 20),
+                    const Icon(
+                      Icons.qr_code_rounded,
+                      color: AppTheme.primaryColor,
+                      size: 20,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
                         product.barcode!,
-                        style: GoogleFonts.inter(fontSize: 13, color: theme.colorScheme.onSurface),
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          color: theme.colorScheme.onSurface,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -279,7 +325,8 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ],
 
-            if (product.description != null && product.description!.isNotEmpty) ...[
+            if (product.description != null &&
+                product.description!.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
                 'Description',
@@ -406,7 +453,8 @@ class _AdjustStockDialogState extends State<_AdjustStockDialog> {
           onPressed: () async {
             final qty = int.tryParse(_ctrl.text) ?? 0;
             if (qty > 0) {
-              final newStock = widget.product.stockQuantity + (qty * widget.direction);
+              final newStock =
+                  widget.product.stockQuantity + (qty * widget.direction);
               if (newStock < 0) {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -443,7 +491,12 @@ class _InfoCard extends StatelessWidget {
   final IconData icon;
   final Color color;
 
-  const _InfoCard({required this.title, required this.value, required this.icon, required this.color});
+  const _InfoCard({
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -462,7 +515,11 @@ class _InfoCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value,
-            style: GoogleFonts.plusJakartaSans(fontSize: 15, fontWeight: FontWeight.w800, color: color),
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 2),

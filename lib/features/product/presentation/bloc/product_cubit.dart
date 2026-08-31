@@ -13,7 +13,9 @@ abstract class ProductState extends Equatable {
 }
 
 class ProductInitial extends ProductState {}
+
 class ProductLoading extends ProductState {}
+
 class ProductLoaded extends ProductState {
   final List<ProductModel> products;
   final List<ProductModel> filtered;
@@ -46,7 +48,12 @@ class ProductLoaded extends ProductState {
   }
 
   @override
-  List<Object?> get props => [products, filtered, searchQuery, selectedCategory];
+  List<Object?> get props => [
+    products,
+    filtered,
+    searchQuery,
+    selectedCategory,
+  ];
 }
 
 class ProductError extends ProductState {
@@ -63,7 +70,9 @@ class ProductCubit extends Cubit<ProductState> {
 
   ProductCubit(this._repository) : super(ProductInitial()) {
     _boxListener = _onBoxChanged;
-    Hive.box<ProductModel>(AppConstants.productsBox).listenable().addListener(_boxListener);
+    Hive.box<ProductModel>(
+      AppConstants.productsBox,
+    ).listenable().addListener(_boxListener);
   }
 
   void _onBoxChanged() {
@@ -75,7 +84,9 @@ class ProductCubit extends Cubit<ProductState> {
           final filtered = _repository.searchProducts(current.searchQuery);
           emit(current.copyWith(products: products, filtered: filtered));
         } else if (current.selectedCategory != null) {
-          final filtered = _repository.getProductsByCategory(current.selectedCategory!);
+          final filtered = _repository.getProductsByCategory(
+            current.selectedCategory!,
+          );
           emit(current.copyWith(products: products, filtered: filtered));
         } else {
           emit(current.copyWith(products: products));
@@ -91,7 +102,9 @@ class ProductCubit extends Cubit<ProductState> {
 
   @override
   Future<void> close() {
-    Hive.box<ProductModel>(AppConstants.productsBox).listenable().removeListener(_boxListener);
+    Hive.box<ProductModel>(
+      AppConstants.productsBox,
+    ).listenable().removeListener(_boxListener);
     return super.close();
   }
 
@@ -109,10 +122,7 @@ class ProductCubit extends Cubit<ProductState> {
     if (state is ProductLoaded) {
       final current = state as ProductLoaded;
       if (query.isEmpty) {
-        emit(current.copyWith(
-          filtered: current.products,
-          searchQuery: '',
-        ));
+        emit(current.copyWith(filtered: current.products, searchQuery: ''));
       } else {
         final filtered = _repository.searchProducts(query);
         emit(current.copyWith(filtered: filtered, searchQuery: query));
@@ -129,10 +139,7 @@ class ProductCubit extends Cubit<ProductState> {
       } else {
         filtered = _repository.getProductsByCategory(category);
       }
-      emit(current.copyWith(
-        filtered: filtered,
-        selectedCategory: category,
-      ));
+      emit(current.copyWith(filtered: filtered, selectedCategory: category));
     }
   }
 

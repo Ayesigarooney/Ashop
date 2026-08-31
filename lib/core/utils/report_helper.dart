@@ -17,19 +17,29 @@ class ReportHelper {
     for (final p in productsBox.values) {
       final value = p.stockQuantity * p.costPrice;
       totalValue += value;
-      rows.add([p.id, p.name, p.stockQuantity, p.costPrice.toStringAsFixed(2), value.toStringAsFixed(2)]);
+      rows.add([
+        p.id,
+        p.name,
+        p.stockQuantity,
+        p.costPrice.toStringAsFixed(2),
+        value.toStringAsFixed(2),
+      ]);
     }
     rows.add([]);
     rows.add(['', '', '', 'TOTAL', totalValue.toStringAsFixed(2)]);
     return const ListToCsvConverter().convert(rows);
   }
 
-  static Future<String> generateStockMovementCsv(DateTime start, DateTime end) async {
+  static Future<String> generateStockMovementCsv(
+    DateTime start,
+    DateTime end,
+  ) async {
     final salesBox = Hive.box<SaleModel>(AppConstants.salesBox);
     final Map<String, Map<String, dynamic>> agg = {};
 
     for (final sale in salesBox.values) {
-      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end)) continue;
+      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end))
+        continue;
       for (final item in sale.items) {
         final key = item.productId;
         final existing = agg[key];
@@ -43,7 +53,8 @@ class ReportHelper {
         } else {
           existing['sold'] = existing['sold'] + item.quantity;
           existing['revenue'] = existing['revenue'] + item.totalPrice;
-          existing['cost'] = existing['cost'] + (item.costPrice * item.quantity);
+          existing['cost'] =
+              existing['cost'] + (item.costPrice * item.quantity);
         }
       }
     }
@@ -65,13 +76,17 @@ class ReportHelper {
     return const ListToCsvConverter().convert(rows);
   }
 
-  static Future<String> generateProfitLossCsv(DateTime start, DateTime end) async {
+  static Future<String> generateProfitLossCsv(
+    DateTime start,
+    DateTime end,
+  ) async {
     final salesBox = Hive.box<SaleModel>(AppConstants.salesBox);
     double revenue = 0;
     double cost = 0;
 
     for (final sale in salesBox.values) {
-      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end)) continue;
+      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end))
+        continue;
       revenue += sale.total;
       for (final item in sale.items) {
         cost += item.costPrice * item.quantity;
@@ -90,7 +105,8 @@ class ReportHelper {
   }
 
   /// Convenience wrappers without date params (full history)
-  static Future<String> generateAllInventoryCsv() => generateInventoryValuationCsv();
+  static Future<String> generateAllInventoryCsv() =>
+      generateInventoryValuationCsv();
 
   static Future<String> generateAllProfitLossCsv() async {
     final start = DateTime.fromMillisecondsSinceEpoch(0);
@@ -113,7 +129,9 @@ class ReportHelper {
     final file = File('${tempDir.path}/$filename');
     await file.writeAsString(csvContent);
     try {
-      await Share.shareXFiles([XFile(file.path, mimeType: 'text/csv')], subject: filename);
+      await Share.shareXFiles([
+        XFile(file.path, mimeType: 'text/csv'),
+      ], subject: filename);
     } catch (_) {
       await Share.share(csvContent, subject: filename);
     }

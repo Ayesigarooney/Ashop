@@ -1,9 +1,7 @@
 class ValidationHelper {
   /// Strip HTML tags and trim whitespace to prevent XSS / injection
   static String sanitize(String value) {
-    return value
-        .replaceAll(RegExp(r'<[^>]*>'), '')
-        .trim();
+    return value.replaceAll(RegExp(r'<[^>]*>'), '').trim();
   }
 
   static String? required(String? value, [String field = 'This field']) {

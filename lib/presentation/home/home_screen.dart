@@ -34,14 +34,22 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _onSalesChanged = () => setState(() {});
     _onProductsChanged = () => setState(() {});
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().addListener(_onSalesChanged);
-    Hive.box<ProductModel>(AppConstants.productsBox).listenable().addListener(_onProductsChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().addListener(_onSalesChanged);
+    Hive.box<ProductModel>(
+      AppConstants.productsBox,
+    ).listenable().addListener(_onProductsChanged);
   }
 
   @override
   void dispose() {
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().removeListener(_onSalesChanged);
-    Hive.box<ProductModel>(AppConstants.productsBox).listenable().removeListener(_onProductsChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().removeListener(_onSalesChanged);
+    Hive.box<ProductModel>(
+      AppConstants.productsBox,
+    ).listenable().removeListener(_onProductsChanged);
     super.dispose();
   }
 
@@ -66,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final weekRevenue = weekData.values.fold(0.0, (a, b) => a + b);
 
     final lowStock = context.read<ProductCubit>().getLowStockProducts(
-        threshold: _settingsRepo.lowStockThreshold);
+      threshold: _settingsRepo.lowStockThreshold,
+    );
     final outOfStock = context.read<ProductCubit>().getOutOfStockProducts();
     final todaySales = _saleRepo.getTodaySales();
 
@@ -80,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
             expandedHeight: 140,
             floating: false,
             pinned: true,
-            backgroundColor: isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
+            backgroundColor: isDark
+                ? AppTheme.darkSurface
+                : AppTheme.lightSurface,
             elevation: 0,
             scrolledUnderElevation: 0,
             flexibleSpace: FlexibleSpaceBar(
@@ -111,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Good ${_getGreeting()} 👋',
                                 style: GoogleFonts.inter(
                                   fontSize: 13,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.55),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.55),
                                 ),
                               ),
                               const SizedBox(height: 3),
@@ -129,14 +141,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 DateFormatter.formatDate(DateTime.now()),
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.4),
+                                  color: theme.colorScheme.onSurface
+                                      .withOpacity(0.4),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         const SizedBox(width: 12),
-                         Container(
+                        Container(
                           width: 46,
                           height: 46,
                           decoration: BoxDecoration(
@@ -150,7 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          child: _settingsRepo.shopLogo != null && File(_settingsRepo.shopLogo!).existsSync()
+                          child:
+                              _settingsRepo.shopLogo != null &&
+                                  File(_settingsRepo.shopLogo!).existsSync()
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(14),
                                   child: Image.file(
@@ -162,7 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )
                               : Center(
                                   child: Text(
-                                    shopName.isNotEmpty ? shopName[0].toUpperCase() : 'A',
+                                    shopName.isNotEmpty
+                                        ? shopName[0].toUpperCase()
+                                        : 'A',
                                     style: GoogleFonts.plusJakartaSans(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w800,
@@ -204,7 +221,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               fit: BoxFit.scaleDown,
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                CurrencyFormatter.format(todayRevenue, currency: currency),
+                                CurrencyFormatter.format(
+                                  todayRevenue,
+                                  currency: currency,
+                                ),
                                 style: GoogleFonts.plusJakartaSans(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w800,
@@ -215,7 +235,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 6),
                             Row(
                               children: [
-                                const Icon(Icons.trending_up, color: AppTheme.accentColor, size: 14),
+                                const Icon(
+                                  Icons.trending_up,
+                                  color: AppTheme.accentColor,
+                                  size: 14,
+                                ),
                                 const SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
@@ -238,7 +262,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(20),
@@ -259,7 +286,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.payments_rounded, color: Colors.white, size: 24),
+                            child: const Icon(
+                              Icons.payments_rounded,
+                              color: Colors.white,
+                              size: 24,
+                            ),
                           ),
                         ],
                       ),
@@ -280,7 +311,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     StatCard(
                       title: 'This Week',
-                      value: CurrencyFormatter.formatCompact(weekRevenue, currency: currency),
+                      value: CurrencyFormatter.formatCompact(
+                        weekRevenue,
+                        currency: currency,
+                      ),
                       subtitle: 'Revenue',
                       icon: Icons.calendar_today_rounded,
                       color: AppTheme.infoColor,
@@ -297,16 +331,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       value: lowStock.length.toString(),
                       subtitle: lowStock.isEmpty ? 'All good!' : 'Need restock',
                       icon: Icons.warning_amber_rounded,
-                      color: lowStock.isEmpty ? AppTheme.successColor : AppTheme.warningColor,
-                      onTap: lowStock.isNotEmpty ? () => AppShell.of(context)?.navigateTo(2) : null,
+                      color: lowStock.isEmpty
+                          ? AppTheme.successColor
+                          : AppTheme.warningColor,
+                      onTap: lowStock.isNotEmpty
+                          ? () => AppShell.of(context)?.navigateTo(2)
+                          : null,
                     ),
                     StatCard(
                       title: 'Out of Stock',
                       value: outOfStock.length.toString(),
-                      subtitle: outOfStock.isEmpty ? 'All good!' : 'Unavailable',
+                      subtitle: outOfStock.isEmpty
+                          ? 'All good!'
+                          : 'Unavailable',
                       icon: Icons.remove_shopping_cart_rounded,
-                      color: outOfStock.isEmpty ? AppTheme.successColor : AppTheme.dangerColor,
-                      onTap: outOfStock.isNotEmpty ? () => AppShell.of(context)?.navigateTo(2) : null,
+                      color: outOfStock.isEmpty
+                          ? AppTheme.successColor
+                          : AppTheme.dangerColor,
+                      onTap: outOfStock.isNotEmpty
+                          ? () => AppShell.of(context)?.navigateTo(2)
+                          : null,
                     ),
                   ],
                 ),
@@ -366,12 +410,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     onAction: () => AppShell.of(context)?.navigateTo(2),
                   ),
                   const SizedBox(height: 12),
-                  ...[...outOfStock.take(2), ...lowStock.take(2)].map((product) =>
-                      _StockAlertTile(
-                        name: product.name,
-                        qty: product.stockQuantity,
-                        isOut: product.isOutOfStock,
-                      )),
+                  ...[...outOfStock.take(2), ...lowStock.take(2)].map(
+                    (product) => _StockAlertTile(
+                      name: product.name,
+                      qty: product.stockQuantity,
+                      isOut: product.isOutOfStock,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                 ],
 
@@ -389,13 +434,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: 'Start selling to see your sales here',
                   )
                 else
-                  ...todaySales.take(5).map((sale) => _RecentSaleTile(
-                        receiptNo: sale.receiptNumber,
-                        total: CurrencyFormatter.format(sale.total, currency: currency),
-                        time: DateFormatter.formatTime(sale.createdAt),
-                        itemCount: sale.items.length,
-                        paymentMethod: sale.paymentMethod,
-                      )),
+                  ...todaySales
+                      .take(5)
+                      .map(
+                        (sale) => _RecentSaleTile(
+                          receiptNo: sale.receiptNumber,
+                          total: CurrencyFormatter.format(
+                            sale.total,
+                            currency: currency,
+                          ),
+                          time: DateFormatter.formatTime(sale.createdAt),
+                          itemCount: sale.items.length,
+                          paymentMethod: sale.paymentMethod,
+                        ),
+                      ),
               ]),
             ),
           ),
@@ -473,7 +525,11 @@ class _StockAlertTile extends StatelessWidget {
   final int qty;
   final bool isOut;
 
-  const _StockAlertTile({required this.name, required this.qty, required this.isOut});
+  const _StockAlertTile({
+    required this.name,
+    required this.qty,
+    required this.isOut,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +546,9 @@ class _StockAlertTile extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            isOut ? Icons.remove_shopping_cart_rounded : Icons.warning_amber_rounded,
+            isOut
+                ? Icons.remove_shopping_cart_rounded
+                : Icons.warning_amber_rounded,
             color: color,
             size: 18,
           ),
@@ -542,7 +600,9 @@ class _RecentSaleTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+        border: Border.all(
+          color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
+        ),
       ),
       child: Row(
         children: [
@@ -553,7 +613,11 @@ class _RecentSaleTile extends StatelessWidget {
               color: AppTheme.primaryColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.receipt_rounded, color: AppTheme.primaryColor, size: 18),
+            child: const Icon(
+              Icons.receipt_rounded,
+              color: AppTheme.primaryColor,
+              size: 18,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(

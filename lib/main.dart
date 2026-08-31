@@ -54,7 +54,10 @@ Future<void> initializeApp({
     await Future.wait([
       // Settings box is now encrypted — the PIN lockout counters are protected too
       Hive.openBox(AppConstants.settingsBox, encryptionKey: hiveKey),
-      Hive.openBox<ProductModel>(AppConstants.productsBox, encryptionKey: hiveKey),
+      Hive.openBox<ProductModel>(
+        AppConstants.productsBox,
+        encryptionKey: hiveKey,
+      ),
       Hive.openBox<SaleModel>(AppConstants.salesBox, encryptionKey: hiveKey),
       Hive.openBox<dynamic>(AppConstants.notesBox, encryptionKey: hiveKey),
     ]);

@@ -36,7 +36,10 @@ class _PosScreenState extends State<PosScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Point of Sale', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Point of Sale',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.qr_code_scanner_rounded),
@@ -103,7 +106,10 @@ class _PosScreenState extends State<PosScreen> {
                         },
                       )
                     : null,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
               ),
               onChanged: (v) {
                 context.read<ProductCubit>().searchProducts(v);
@@ -115,7 +121,10 @@ class _PosScreenState extends State<PosScreen> {
           // Category Filter
           BlocBuilder<ProductCubit, ProductState>(
             builder: (context, state) {
-              final categories = ['All', ...context.read<ProductCubit>().getCategories()];
+              final categories = [
+                'All',
+                ...context.read<ProductCubit>().getCategories(),
+              ];
               return SizedBox(
                 height: 36,
                 child: ListView.separated(
@@ -129,21 +138,30 @@ class _PosScreenState extends State<PosScreen> {
                     return GestureDetector(
                       onTap: () {
                         setState(() => _selectedCategory = cat);
-                        context.read<ProductCubit>().filterByCategory(cat == 'All' ? null : cat);
+                        context.read<ProductCubit>().filterByCategory(
+                          cat == 'All' ? null : cat,
+                        );
                       },
                       behavior: HitTestBehavior.opaque,
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 150),
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           color: selected
                               ? AppTheme.primaryColor
-                              : (isDark ? AppTheme.darkCardAlt : AppTheme.lightBg),
+                              : (isDark
+                                    ? AppTheme.darkCardAlt
+                                    : AppTheme.lightBg),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: selected
                                 ? AppTheme.primaryColor
-                                : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                                : (isDark
+                                      ? AppTheme.darkBorder
+                                      : AppTheme.lightBorder),
                           ),
                         ),
                         child: Text(
@@ -172,7 +190,9 @@ class _PosScreenState extends State<PosScreen> {
               builder: (context, state) {
                 if (state is ProductLoading) return const AshopLoading();
                 if (state is ProductLoaded) {
-                  final products = state.filtered.where((p) => p.isActive).toList();
+                  final products = state.filtered
+                      .where((p) => p.isActive)
+                      .toList();
                   if (products.isEmpty) {
                     return const EmptyState(
                       icon: Icons.inventory_2_rounded,
@@ -182,12 +202,13 @@ class _PosScreenState extends State<PosScreen> {
                   }
                   return GridView.builder(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 0.8,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          childAspectRatio: 0.8,
+                        ),
                     itemCount: products.length,
                     itemBuilder: (_, i) => _ProductCard(
                       product: products[i],
@@ -195,7 +216,9 @@ class _PosScreenState extends State<PosScreen> {
                         if (products[i].isOutOfStock) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('${products[i].name} is out of stock'),
+                              content: Text(
+                                '${products[i].name} is out of stock',
+                              ),
                               backgroundColor: AppTheme.dangerColor,
                               behavior: SnackBarBehavior.floating,
                               duration: const Duration(milliseconds: 1500),
@@ -208,7 +231,11 @@ class _PosScreenState extends State<PosScreen> {
                           SnackBar(
                             content: Row(
                               children: [
-                                const Icon(Icons.check_circle_rounded, color: Colors.white, size: 16),
+                                const Icon(
+                                  Icons.check_circle_rounded,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
@@ -245,7 +272,10 @@ class _PosScreenState extends State<PosScreen> {
               onTap: () => _showCart(context),
               behavior: HitTestBehavior.opaque,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 13,
+                ),
                 decoration: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
                   borderRadius: BorderRadius.circular(20),
@@ -377,7 +407,9 @@ class _ProductCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final currency = context.read<SettingsRepository>().currency;
-    final lowStockThreshold = context.read<SettingsRepository>().lowStockThreshold;
+    final lowStockThreshold = context
+        .read<SettingsRepository>()
+        .lowStockThreshold;
 
     return GestureDetector(
       onTap: onTap,
@@ -389,8 +421,8 @@ class _ProductCard extends StatelessWidget {
             color: product.isOutOfStock
                 ? AppTheme.dangerColor.withOpacity(0.3)
                 : product.isLowStock(threshold: lowStockThreshold)
-                    ? AppTheme.warningColor.withOpacity(0.25)
-                    : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
+                ? AppTheme.warningColor.withOpacity(0.25)
+                : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           ),
         ),
         child: Column(
@@ -404,20 +436,25 @@ class _ProductCard extends StatelessWidget {
                   color: isDark
                       ? AppTheme.darkCardAlt
                       : AppTheme.primaryColor.withOpacity(0.05),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(15),
+                  ),
                 ),
                 child: Stack(
                   children: [
                     Center(
                       child: product.imagePath != null
                           ? ClipRRect(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(15),
+                              ),
                               child: Image.file(
                                 File(product.imagePath!),
                                 fit: BoxFit.cover,
                                 width: double.infinity,
                                 height: double.infinity,
-                                errorBuilder: (_, __, ___) => _defaultIcon(product.category),
+                                errorBuilder: (_, __, ___) =>
+                                    _defaultIcon(product.category),
                               ),
                             )
                           : _defaultIcon(product.category),
@@ -426,13 +463,19 @@ class _ProductCard extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: AppTheme.dangerColor.withOpacity(0.85),
-                          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(15),
+                          ),
                         ),
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.remove_shopping_cart_rounded, color: Colors.white, size: 22),
+                              const Icon(
+                                Icons.remove_shopping_cart_rounded,
+                                color: Colors.white,
+                                size: 22,
+                              ),
                               const SizedBox(height: 4),
                               Text(
                                 'OUT OF\nSTOCK',
@@ -447,12 +490,16 @@ class _ProductCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (product.isLowStock(threshold: lowStockThreshold) && !product.isOutOfStock)
+                    if (product.isLowStock(threshold: lowStockThreshold) &&
+                        !product.isOutOfStock)
                       Positioned(
                         top: 6,
                         right: 6,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: AppTheme.warningColor,
                             borderRadius: BorderRadius.circular(6),
@@ -494,7 +541,10 @@ class _ProductCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            CurrencyFormatter.format(product.sellingPrice, currency: currency),
+                            CurrencyFormatter.format(
+                              product.sellingPrice,
+                              currency: currency,
+                            ),
                             style: GoogleFonts.plusJakartaSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w800,
@@ -516,7 +566,9 @@ class _ProductCard extends StatelessWidget {
                           child: Icon(
                             Icons.add,
                             size: 15,
-                            color: product.isOutOfStock ? AppTheme.dangerColor : Colors.white,
+                            color: product.isOutOfStock
+                                ? AppTheme.dangerColor
+                                : Colors.white,
                           ),
                         ),
                       ],

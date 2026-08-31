@@ -15,12 +15,12 @@ void main() {
     expect(() => di.setupLocator(), returnsNormally);
   });
 
-  test('initializeApp registers required services before app startup', () async {
-    await app.initializeApp(
-      initializePlatform: false,
-      initializeHive: false,
-    );
+  test(
+    'initializeApp registers required services before app startup',
+    () async {
+      await app.initializeApp(initializePlatform: false, initializeHive: false);
 
-    expect(di.locator.isRegistered<SettingsRepository>(), isTrue);
-  });
+      expect(di.locator.isRegistered<SettingsRepository>(), isTrue);
+    },
+  );
 }

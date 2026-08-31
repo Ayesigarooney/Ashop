@@ -59,7 +59,8 @@ class NoteUtils {
           : 'untitled_note';
       final file = File('${tempDir.path}/$titleSafe.txt');
 
-      final content = '${note.title.isNotEmpty ? note.title.toUpperCase() : 'UNTITLED NOTE'}\n'
+      final content =
+          '${note.title.isNotEmpty ? note.title.toUpperCase() : 'UNTITLED NOTE'}\n'
           'Category: ${note.category}\n'
           'Last Updated: ${DateFormat('yyyy-MM-dd HH:mm').format(note.updatedAt)}\n'
           '--------------------------------------------------------\n\n'
@@ -68,10 +69,9 @@ class NoteUtils {
       await file.writeAsString(content, flush: true);
 
       if (!context.mounted) return;
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        subject: note.title.isNotEmpty ? note.title : 'Business Note',
-      );
+      await Share.shareXFiles([
+        XFile(file.path),
+      ], subject: note.title.isNotEmpty ? note.title : 'Business Note');
     } catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -104,20 +104,31 @@ class NoteUtils {
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Text(
-                            note.title.isNotEmpty ? note.title : 'UNTITLED NOTE',
-                            style: pw.TextStyle(fontSize: 22, fontWeight: pw.FontWeight.bold),
+                            note.title.isNotEmpty
+                                ? note.title
+                                : 'UNTITLED NOTE',
+                            style: pw.TextStyle(
+                              fontSize: 22,
+                              fontWeight: pw.FontWeight.bold,
+                            ),
                           ),
                           pw.SizedBox(height: 4),
                           pw.Text(
                             'Category: ${note.category}',
-                            style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
+                            style: const pw.TextStyle(
+                              fontSize: 10,
+                              color: PdfColors.grey700,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     pw.Text(
                       'Last Updated: ${DateFormat('yyyy-MM-dd HH:mm').format(note.updatedAt)}',
-                      style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey600),
+                      style: const pw.TextStyle(
+                        fontSize: 9,
+                        color: PdfColors.grey600,
+                      ),
                     ),
                   ],
                 ),
@@ -154,7 +165,10 @@ class NoteUtils {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.share_rounded, color: AppTheme.primaryColor),
+                leading: const Icon(
+                  Icons.share_rounded,
+                  color: AppTheme.primaryColor,
+                ),
                 title: const Text('Share PDF File'),
                 onTap: () {
                   Navigator.pop(sheetCtx);

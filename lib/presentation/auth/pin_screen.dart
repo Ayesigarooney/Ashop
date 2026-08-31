@@ -28,10 +28,13 @@ class _PinScreenState extends State<PinScreen>
   void initState() {
     super.initState();
     _shakeCtrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
-    _shakeAnim = Tween<double>(begin: 0, end: 10).animate(
-      CurvedAnimation(parent: _shakeCtrl, curve: Curves.elasticIn),
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
     );
+    _shakeAnim = Tween<double>(
+      begin: 0,
+      end: 10,
+    ).animate(CurvedAnimation(parent: _shakeCtrl, curve: Curves.elasticIn));
     _checkLockoutOnInit();
   }
 
@@ -141,7 +144,11 @@ class _PinScreenState extends State<PinScreen>
                       ),
                     ],
                   ),
-                  child: const Icon(Icons.lock_rounded, color: Colors.white, size: 32),
+                  child: const Icon(
+                    Icons.lock_rounded,
+                    color: Colors.white,
+                    size: 32,
+                  ),
                 ),
                 SizedBox(height: isSmall ? 16 : 24),
                 Text(
@@ -154,7 +161,9 @@ class _PinScreenState extends State<PinScreen>
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  lockedOut ? 'Too many attempts' : 'Enter your PIN to continue',
+                  lockedOut
+                      ? 'Too many attempts'
+                      : 'Enter your PIN to continue',
                   style: GoogleFonts.inter(
                     color: lockedOut
                         ? AppTheme.dangerColor
@@ -169,7 +178,10 @@ class _PinScreenState extends State<PinScreen>
                   animation: _shakeAnim,
                   builder: (_, child) => Transform.translate(
                     offset: Offset(
-                      _error ? _shakeAnim.value * (_entered.length % 2 == 0 ? 1 : -1) : 0,
+                      _error
+                          ? _shakeAnim.value *
+                                (_entered.length % 2 == 0 ? 1 : -1)
+                          : 0,
                       0,
                     ),
                     child: child,
@@ -187,10 +199,12 @@ class _PinScreenState extends State<PinScreen>
                           color: _error
                               ? AppTheme.dangerColor
                               : filled
-                                  ? AppTheme.primaryColor
-                                  : Colors.white.withOpacity(0.15),
+                              ? AppTheme.primaryColor
+                              : Colors.white.withOpacity(0.15),
                           border: Border.all(
-                            color: _error ? AppTheme.dangerColor : AppTheme.primaryColor,
+                            color: _error
+                                ? AppTheme.dangerColor
+                                : AppTheme.primaryColor,
                             width: 1.5,
                           ),
                         ),
@@ -203,7 +217,10 @@ class _PinScreenState extends State<PinScreen>
                   const SizedBox(height: 10),
                   Text(
                     _errorMsg,
-                    style: GoogleFonts.inter(color: AppTheme.dangerColor, fontSize: 13),
+                    style: GoogleFonts.inter(
+                      color: AppTheme.dangerColor,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
 
@@ -235,32 +252,59 @@ class _PinScreenState extends State<PinScreen>
                         crossAxisSpacing: 14,
                         mainAxisSpacing: 14,
                         childAspectRatio: 1.2,
-                        children: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫']
-                            .map((k) => k.isEmpty
-                                ? const SizedBox.shrink()
-                                : GestureDetector(
-                                    onTap: () => k == '⌫' ? _onBackspace() : _onKey(k),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.07),
-                                        borderRadius: BorderRadius.circular(14),
-                                        border: Border.all(
-                                          color: Colors.white.withOpacity(0.08),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          k,
-                                          style: GoogleFonts.plusJakartaSans(
-                                            fontSize: k == '⌫' ? 18 : 22,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white,
+                        children:
+                            [
+                                  '1',
+                                  '2',
+                                  '3',
+                                  '4',
+                                  '5',
+                                  '6',
+                                  '7',
+                                  '8',
+                                  '9',
+                                  '',
+                                  '0',
+                                  '⌫',
+                                ]
+                                .map(
+                                  (k) => k.isEmpty
+                                      ? const SizedBox.shrink()
+                                      : GestureDetector(
+                                          onTap: () => k == '⌫'
+                                              ? _onBackspace()
+                                              : _onKey(k),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(
+                                                0.07,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                              border: Border.all(
+                                                color: Colors.white.withOpacity(
+                                                  0.08,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                k,
+                                                style:
+                                                    GoogleFonts.plusJakartaSans(
+                                                      fontSize: k == '⌫'
+                                                          ? 18
+                                                          : 22,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ))
-                            .toList(),
+                                )
+                                .toList(),
                       ),
                     ),
                   ),

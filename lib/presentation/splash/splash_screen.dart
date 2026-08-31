@@ -26,11 +26,17 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
-    _fadeAnim = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-    _scaleAnim = Tween<double>(begin: 0.7, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut));
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeAnim = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _scaleAnim = Tween<double>(
+      begin: 0.7,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut));
     _ctrl.forward();
     if (!widget.simple) _initialize();
   }
@@ -87,8 +93,11 @@ class _SplashScreenState extends State<SplashScreen>
                       ],
                     ),
                     child: const Center(
-                      child: Icon(Icons.point_of_sale_rounded,
-                          color: Colors.white, size: 52),
+                      child: Icon(
+                        Icons.point_of_sale_rounded,
+                        color: Colors.white,
+                        size: 52,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 28),

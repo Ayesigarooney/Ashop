@@ -30,12 +30,16 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   void initState() {
     super.initState();
     _onSalesChanged = () => setState(() {});
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().addListener(_onSalesChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().addListener(_onSalesChanged);
   }
 
   @override
   void dispose() {
-    Hive.box<SaleModel>(AppConstants.salesBox).listenable().removeListener(_onSalesChanged);
+    Hive.box<SaleModel>(
+      AppConstants.salesBox,
+    ).listenable().removeListener(_onSalesChanged);
     _searchCtrl.dispose();
     super.dispose();
   }
@@ -51,17 +55,29 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
 
     if (_filterQuery.isNotEmpty) {
       sales = sales
-          .where((s) =>
-              s.receiptNumber.toLowerCase().contains(_filterQuery.toLowerCase()) ||
-              (s.customerName?.toLowerCase().contains(_filterQuery.toLowerCase()) ?? false))
+          .where(
+            (s) =>
+                s.receiptNumber.toLowerCase().contains(
+                  _filterQuery.toLowerCase(),
+                ) ||
+                (s.customerName?.toLowerCase().contains(
+                      _filterQuery.toLowerCase(),
+                    ) ??
+                    false),
+          )
           .toList();
     }
 
-    final totalRevenue = sales.where((s) => !s.isRefunded).fold(0.0, (a, s) => a + s.total);
+    final totalRevenue = sales
+        .where((s) => !s.isRefunded)
+        .fold(0.0, (a, s) => a + s.total);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order History', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Order History',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -107,22 +123,34 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                             },
                           )
                         : null,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                   ),
                   onChanged: (v) => setState(() => _filterQuery = v),
                 ),
                 if (_filterDate != null) ...[
                   const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 7,
+                    ),
                     decoration: BoxDecoration(
                       color: AppTheme.primaryColor.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppTheme.primaryColor.withOpacity(0.2)),
+                      border: Border.all(
+                        color: AppTheme.primaryColor.withOpacity(0.2),
+                      ),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.calendar_today_rounded, size: 13, color: AppTheme.primaryColor),
+                        const Icon(
+                          Icons.calendar_today_rounded,
+                          size: 13,
+                          color: AppTheme.primaryColor,
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           'Showing: ${DateFormatter.formatDate(_filterDate!)}',
@@ -135,7 +163,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                         const Spacer(),
                         GestureDetector(
                           onTap: () => setState(() => _filterDate = null),
-                          child: const Icon(Icons.close, size: 14, color: AppTheme.primaryColor),
+                          child: const Icon(
+                            Icons.close,
+                            size: 14,
+                            color: AppTheme.primaryColor,
+                          ),
                         ),
                       ],
                     ),
@@ -150,7 +182,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
                   borderRadius: BorderRadius.circular(12),
@@ -160,7 +195,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.receipt_long_rounded, color: Colors.white, size: 16),
+                        const Icon(
+                          Icons.receipt_long_rounded,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                         const SizedBox(width: 6),
                         Text(
                           '${sales.length} orders',
@@ -172,7 +211,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       ],
                     ),
                     Text(
-                      CurrencyFormatter.format(totalRevenue, currency: currency),
+                      CurrencyFormatter.format(
+                        totalRevenue,
+                        currency: currency,
+                      ),
                       style: GoogleFonts.plusJakartaSans(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
@@ -211,8 +253,12 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                 isDanger: true,
                               );
                               if (confirm == true) {
-                                final productRepo = context.read<ProductRepository>();
-                                await saleRepo.refundSale(sales[i].id, productRepo);
+                                final productRepo = context
+                                    .read<ProductRepository>();
+                                await saleRepo.refundSale(
+                                  sales[i].id,
+                                  productRepo,
+                                );
                                 if (context.mounted) setState(() {});
                               }
                             },
@@ -270,8 +316,12 @@ class _OrderTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(
-                    sale.isRefunded ? Icons.undo_rounded : Icons.receipt_rounded,
-                    color: sale.isRefunded ? AppTheme.dangerColor : AppTheme.primaryColor,
+                    sale.isRefunded
+                        ? Icons.undo_rounded
+                        : Icons.receipt_rounded,
+                    color: sale.isRefunded
+                        ? AppTheme.dangerColor
+                        : AppTheme.primaryColor,
                     size: 20,
                   ),
                 ),
@@ -295,7 +345,10 @@ class _OrderTile extends StatelessWidget {
                           ),
                           if (sale.isRefunded) ...[
                             const SizedBox(width: 6),
-                            StatusBadge(label: 'Refunded', color: AppTheme.dangerColor),
+                            StatusBadge(
+                              label: 'Refunded',
+                              color: AppTheme.dangerColor,
+                            ),
                           ],
                         ],
                       ),
@@ -321,7 +374,9 @@ class _OrderTile extends StatelessWidget {
                       style: GoogleFonts.plusJakartaSans(
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
-                        color: sale.isRefunded ? AppTheme.dangerColor : AppTheme.primaryColor,
+                        color: sale.isRefunded
+                            ? AppTheme.dangerColor
+                            : AppTheme.primaryColor,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -338,7 +393,10 @@ class _OrderTile extends StatelessWidget {
             ),
             if (onRefund != null) ...[
               const SizedBox(height: 8),
-              Divider(height: 1, color: theme.colorScheme.onSurface.withOpacity(0.07)),
+              Divider(
+                height: 1,
+                color: theme.colorScheme.onSurface.withOpacity(0.07),
+              ),
               const SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -349,7 +407,10 @@ class _OrderTile extends StatelessWidget {
                     label: const Text('Refund', style: TextStyle(fontSize: 12)),
                     style: TextButton.styleFrom(
                       foregroundColor: AppTheme.dangerColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       minimumSize: Size.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),

@@ -51,7 +51,9 @@ abstract class SaleState extends Equatable {
 }
 
 class SaleInitial extends SaleState {}
+
 class SaleLoading extends SaleState {}
+
 class CartState extends SaleState {
   final List<CartItem> items;
   final double discountAmount;
@@ -94,8 +96,14 @@ class CartState extends SaleState {
   }
 
   @override
-  List<Object?> get props =>
-      [items, discountAmount, taxEnabled, taxRate, customerName, notes];
+  List<Object?> get props => [
+    items,
+    discountAmount,
+    taxEnabled,
+    taxRate,
+    customerName,
+    notes,
+  ];
 }
 
 class SaleCompleted extends SaleState {
@@ -121,14 +129,17 @@ class SaleCubit extends Cubit<SaleState> {
   // Remembers the last cart so an ephemeral SaleError state never wipes it
   CartState? _lastCart;
 
-  SaleCubit(this._saleRepository, this._productRepository, this._settingsRepository)
-      : super(CartState());
+  SaleCubit(
+    this._saleRepository,
+    this._productRepository,
+    this._settingsRepository,
+  ) : super(CartState());
 
   /// Create a fresh cart pre-loaded with the current tax settings.
   CartState _freshCart() => CartState(
-        taxEnabled: _settingsRepository.taxEnabled,
-        taxRate: _settingsRepository.taxRate,
-      );
+    taxEnabled: _settingsRepository.taxEnabled,
+    taxRate: _settingsRepository.taxRate,
+  );
 
   CartState get _cart {
     final s = state;
@@ -148,12 +159,17 @@ class SaleCubit extends Cubit<SaleState> {
       final currentQty = cart.items[existing].quantity;
       // Check if adding one more would exceed available stock
       if (currentQty >= product.stockQuantity) {
-        emit(SaleError('Only ${product.stockQuantity} ${product.name} available in stock'));
+        emit(
+          SaleError(
+            'Only ${product.stockQuantity} ${product.name} available in stock',
+          ),
+        );
         return;
       }
       newItems = List.from(cart.items);
-      newItems[existing] = newItems[existing]
-          .copyWith(quantity: currentQty + 1);
+      newItems[existing] = newItems[existing].copyWith(
+        quantity: currentQty + 1,
+      );
     } else {
       // Check if product has any stock
       if (product.stockQuantity <= 0) {
@@ -168,8 +184,11 @@ class SaleCubit extends Cubit<SaleState> {
 
   void removeFromCart(String productId) {
     final cart = _cart;
-    emit(cart.copyWith(
-        items: cart.items.where((i) => i.product.id != productId).toList()));
+    emit(
+      cart.copyWith(
+        items: cart.items.where((i) => i.product.id != productId).toList(),
+      ),
+    );
   }
 
   /// Returns true if the quantity was clamped to the available stock level.
@@ -200,7 +219,11 @@ class SaleCubit extends Cubit<SaleState> {
     final item = cart.items.firstWhere((i) => i.product.id == productId);
     // Check stock limit before incrementing
     if (item.quantity >= item.product.stockQuantity) {
-      emit(SaleError('Only ${item.product.stockQuantity} ${item.product.name} available'));
+      emit(
+        SaleError(
+          'Only ${item.product.stockQuantity} ${item.product.name} available',
+        ),
+      );
       return;
     }
     updateQuantity(productId, item.quantity + 1);
@@ -215,7 +238,8 @@ class SaleCubit extends Cubit<SaleState> {
   void setItemDiscount(String productId, double percent) {
     final cart = _cart;
     final newItems = cart.items.map((i) {
-      if (i.product.id == productId) return i.copyWith(discountPercent: percent);
+      if (i.product.id == productId)
+        return i.copyWith(discountPercent: percent);
       return i;
     }).toList();
     emit(cart.copyWith(items: newItems));
@@ -234,9 +258,7 @@ class SaleCubit extends Cubit<SaleState> {
     final cart = _cart;
     // Clamp discount so the total can never go negative
     final subtotal = cart.subtotal;
-    final clamped = amount < 0
-        ? 0.0
-        : (amount > subtotal ? subtotal : amount);
+    final clamped = amount < 0 ? 0.0 : (amount > subtotal ? subtotal : amount);
     emit(cart.copyWith(discountAmount: clamped));
   }
 
@@ -270,10 +292,12 @@ class SaleCubit extends Cubit<SaleState> {
         return;
       }
       if (item.quantity > liveProduct.stockQuantity) {
-        emit(SaleError(
-          'Only ${liveProduct.stockQuantity} ${liveProduct.name} available, '
-          'but ${item.quantity} in cart. Please adjust quantity.',
-        ));
+        emit(
+          SaleError(
+            'Only ${liveProduct.stockQuantity} ${liveProduct.name} available, '
+            'but ${item.quantity} in cart. Please adjust quantity.',
+          ),
+        );
         return;
       }
     }
@@ -283,21 +307,24 @@ class SaleCubit extends Cubit<SaleState> {
     // Track stock already deducted so we can roll back on any failure
     final deducted = <String, int>{};
     try {
-      final saleItems = cart.items.map((item) => SaleItemModel(
-            productId: item.product.id,
-            productName: item.product.name,
-            unitPrice: item.unitPrice,
-            quantity: item.quantity,
-            totalPrice: item.lineTotal,
-            discountPercent: item.discountPercent,
-            note: item.note,
-            costPrice: item.product.costPrice,
-          )).toList();
+      final saleItems = cart.items
+          .map(
+            (item) => SaleItemModel(
+              productId: item.product.id,
+              productName: item.product.name,
+              unitPrice: item.unitPrice,
+              quantity: item.quantity,
+              totalPrice: item.lineTotal,
+              discountPercent: item.discountPercent,
+              note: item.note,
+              costPrice: item.product.costPrice,
+            ),
+          )
+          .toList();
 
       // Deduct stock
       for (final item in cart.items) {
-        await _productRepository.updateStock(
-            item.product.id, -item.quantity);
+        await _productRepository.updateStock(item.product.id, -item.quantity);
         deducted[item.product.id] =
             (deducted[item.product.id] ?? 0) + item.quantity;
       }

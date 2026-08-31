@@ -40,7 +40,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800)),
+        title: Text(
+          'Settings',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800),
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
@@ -60,7 +63,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: 2,
                     ),
                   ),
-                  child: _settings.shopLogo != null && File(_settings.shopLogo!).existsSync()
+                  child:
+                      _settings.shopLogo != null &&
+                          File(_settings.shopLogo!).existsSync()
                       ? ClipOval(
                           child: Image.file(
                             File(_settings.shopLogo!),
@@ -71,7 +76,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         )
                       : Center(
                           child: Text(
-                            _settings.shopName.isNotEmpty ? _settings.shopName[0].toUpperCase() : 'A',
+                            _settings.shopName.isNotEmpty
+                                ? _settings.shopName[0].toUpperCase()
+                                : 'A',
                             style: GoogleFonts.plusJakartaSans(
                               fontSize: 36,
                               fontWeight: FontWeight.w800,
@@ -114,7 +121,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Center(
             child: Text(
-              _settings.shopAddress.isEmpty ? 'No address set' : _settings.shopAddress,
+              _settings.shopAddress.isEmpty
+                  ? 'No address set'
+                  : _settings.shopAddress,
               style: GoogleFonts.inter(
                 fontSize: 12,
                 color: theme.colorScheme.onSurface.withOpacity(0.55),
@@ -131,26 +140,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _SettingsTile(
                 title: 'Shop Name',
                 subtitle: _settings.shopName,
-                onTap: () => _editText(context, 'Shop Name', _settings.shopName, (v) {
-                  _settings.shopName = v;
-                  setState(() {});
-                }),
+                onTap: () =>
+                    _editText(context, 'Shop Name', _settings.shopName, (v) {
+                      _settings.shopName = v;
+                      setState(() {});
+                    }),
               ),
               _SettingsTile(
                 title: 'Address',
-                subtitle: _settings.shopAddress.isEmpty ? 'Not set' : _settings.shopAddress,
-                onTap: () => _editText(context, 'Address', _settings.shopAddress, (v) {
-                  _settings.shopAddress = v;
-                  setState(() {});
-                }),
+                subtitle: _settings.shopAddress.isEmpty
+                    ? 'Not set'
+                    : _settings.shopAddress,
+                onTap: () =>
+                    _editText(context, 'Address', _settings.shopAddress, (v) {
+                      _settings.shopAddress = v;
+                      setState(() {});
+                    }),
               ),
               _SettingsTile(
                 title: 'Phone Number',
-                subtitle: _settings.shopPhone.isEmpty ? 'Not set' : _settings.shopPhone,
-                onTap: () => _editText(context, 'Phone Number', _settings.shopPhone, (v) {
-                  _settings.shopPhone = v;
-                  setState(() {});
-                }),
+                subtitle: _settings.shopPhone.isEmpty
+                    ? 'Not set'
+                    : _settings.shopPhone,
+                onTap: () => _editText(
+                  context,
+                  'Phone Number',
+                  _settings.shopPhone,
+                  (v) {
+                    _settings.shopPhone = v;
+                    setState(() {});
+                  },
+                ),
               ),
             ],
           ),
@@ -162,19 +182,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               _SettingsTile(
                 title: 'Header Message',
-                subtitle: _settings.receiptHeader.isEmpty ? 'Not set' : _settings.receiptHeader,
-                onTap: () => _editText(context, 'Receipt Header', _settings.receiptHeader, (v) {
-                  _settings.receiptHeader = v;
-                  setState(() {});
-                }),
+                subtitle: _settings.receiptHeader.isEmpty
+                    ? 'Not set'
+                    : _settings.receiptHeader,
+                onTap: () => _editText(
+                  context,
+                  'Receipt Header',
+                  _settings.receiptHeader,
+                  (v) {
+                    _settings.receiptHeader = v;
+                    setState(() {});
+                  },
+                ),
               ),
               _SettingsTile(
                 title: 'Footer Message',
                 subtitle: _settings.receiptFooter,
-                onTap: () => _editText(context, 'Receipt Footer', _settings.receiptFooter, (v) {
-                  _settings.receiptFooter = v;
-                  setState(() {});
-                }),
+                onTap: () => _editText(
+                  context,
+                  'Receipt Footer',
+                  _settings.receiptFooter,
+                  (v) {
+                    _settings.receiptFooter = v;
+                    setState(() {});
+                  },
+                ),
               ),
             ],
           ),
@@ -189,8 +221,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: _settings.receiptTemplateStyle == 'modern'
                     ? 'Modern'
                     : _settings.receiptTemplateStyle == 'classic'
-                        ? 'Classic'
-                        : 'Compact',
+                    ? 'Classic'
+                    : 'Compact',
                 onTap: () => _pickReceiptTemplate(context),
               ),
               _SettingsSwitchTile(
@@ -343,7 +375,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () async {
                   final csv = await BackupRestoreHelper.generateProductsCsv();
                   final ts = DateTime.now().millisecondsSinceEpoch;
-                  await BackupRestoreHelper.exportCsvToFile(csv, 'ashop_products_$ts.csv');
+                  await BackupRestoreHelper.exportCsvToFile(
+                    csv,
+                    'ashop_products_$ts.csv',
+                  );
                 },
               ),
               _SettingsTile(
@@ -352,7 +387,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () async {
                   final csv = await BackupRestoreHelper.generateSalesCsv();
                   final ts = DateTime.now().millisecondsSinceEpoch;
-                  await BackupRestoreHelper.exportCsvToFile(csv, 'ashop_sales_$ts.csv');
+                  await BackupRestoreHelper.exportCsvToFile(
+                    csv,
+                    'ashop_sales_$ts.csv',
+                  );
                 },
               ),
               _SettingsTile(
@@ -405,7 +443,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     gradient: AppTheme.primaryGradient,
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: const Icon(Icons.point_of_sale_rounded, color: Colors.white, size: 26),
+                  child: const Icon(
+                    Icons.point_of_sale_rounded,
+                    color: Colors.white,
+                    size: 26,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -421,7 +463,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   AppConstants.appTagline,
                   style: GoogleFonts.inter(
                     fontSize: 12,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.45),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.45),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -429,14 +473,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'Developed by ${AppConstants.developerName}',
                   style: GoogleFonts.inter(
                     fontSize: 11,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.3),
                   ),
                 ),
                 Text(
                   AppConstants.developerPhone,
                   style: GoogleFonts.inter(
                     fontSize: 11,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.3),
                   ),
                 ),
               ],
@@ -449,7 +497,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _pickShopLogo(BuildContext context) async {
     final picker = ImagePicker();
-    final hasLogo = _settings.shopLogo != null && File(_settings.shopLogo!).existsSync();
+    final hasLogo =
+        _settings.shopLogo != null && File(_settings.shopLogo!).existsSync();
 
     final source = await showDialog<dynamic>(
       context: context,
@@ -468,8 +517,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           if (hasLogo)
             ListTile(
-              leading: const Icon(Icons.delete_rounded, color: AppTheme.dangerColor),
-              title: const Text('Remove Photo', style: TextStyle(color: AppTheme.dangerColor)),
+              leading: const Icon(
+                Icons.delete_rounded,
+                color: AppTheme.dangerColor,
+              ),
+              title: const Text(
+                'Remove Photo',
+                style: TextStyle(color: AppTheme.dangerColor),
+              ),
               onTap: () => Navigator.pop(ctx, 'remove'),
             ),
         ],
@@ -492,13 +547,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _backupToFile(BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Generating backup...'), behavior: SnackBarBehavior.floating),
+      const SnackBar(
+        content: Text('Generating backup...'),
+        behavior: SnackBarBehavior.floating,
+      ),
     );
     try {
       await BackupRestoreHelper.backupToFile();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Backup shared successfully!'), behavior: SnackBarBehavior.floating),
+        const SnackBar(
+          content: Text('Backup shared successfully!'),
+          behavior: SnackBarBehavior.floating,
+        ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -549,21 +610,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             height: currencies.length > 8 ? 400 : null,
             child: ListView(
               shrinkWrap: true,
-              children: currencies.map((c) => ListTile(
-                title: Text(
-                  '${c['name']} (${c['symbol']})',
-                  overflow: TextOverflow.ellipsis,
-                ),
-                subtitle: Text(c['code']!),
-                trailing: _settings.currency == c['code']
-                    ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor)
-                    : null,
-                onTap: () {
-                  _settings.currency = c['code']!;
-                  setState(() {});
-                  Navigator.pop(ctx);
-                },
-              )).toList(),
+              children: currencies
+                  .map(
+                    (c) => ListTile(
+                      title: Text(
+                        '${c['name']} (${c['symbol']})',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(c['code']!),
+                      trailing: _settings.currency == c['code']
+                          ? const Icon(
+                              Icons.check_rounded,
+                              color: AppTheme.primaryColor,
+                            )
+                          : null,
+                      onTap: () {
+                        _settings.currency = c['code']!;
+                        setState(() {});
+                        Navigator.pop(ctx);
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],
@@ -579,16 +647,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (ctx) => SimpleDialog(
         title: const Text('Select Receipt Template'),
         children: [
-          ...List.generate(options.length, (i) => ListTile(
-            title: Text(labels[i]),
-            trailing: _settings.receiptTemplateStyle == options[i]
-                ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor) : null,
-            onTap: () {
-              _settings.receiptTemplateStyle = options[i];
-              setState(() {});
-              Navigator.pop(ctx);
-            },
-          )),
+          ...List.generate(
+            options.length,
+            (i) => ListTile(
+              title: Text(labels[i]),
+              trailing: _settings.receiptTemplateStyle == options[i]
+                  ? const Icon(
+                      Icons.check_rounded,
+                      color: AppTheme.primaryColor,
+                    )
+                  : null,
+              onTap: () {
+                _settings.receiptTemplateStyle = options[i];
+                setState(() {});
+                Navigator.pop(ctx);
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -603,7 +678,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             title: const Text('58mm (Thermal)'),
             trailing: _settings.printerPaperSize == '58mm'
-                ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor) : null,
+                ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor)
+                : null,
             onTap: () {
               _settings.printerPaperSize = '58mm';
               setState(() {});
@@ -613,7 +689,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             title: const Text('80mm (Thermal)'),
             trailing: _settings.printerPaperSize == '80mm'
-                ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor) : null,
+                ? const Icon(Icons.check_rounded, color: AppTheme.primaryColor)
+                : null,
             onTap: () {
               _settings.printerPaperSize = '80mm';
               setState(() {});
@@ -629,7 +706,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     showDialog(
       context: context,
       builder: (dialogCtx) => AlertDialog(
-        title: Text('Factory Reset', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+        title: Text(
+          'Factory Reset',
+          style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+        ),
         content: const Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -675,13 +755,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                 // Re-open fresh boxes with a new encryption key
                 await Hive.openBox(AppConstants.settingsBox);
-                await Hive.openBox<ProductModel>(AppConstants.productsBox,
-                    encryptionKey: newKey);
-                await Hive.openBox<SaleModel>(AppConstants.salesBox,
-                    encryptionKey: newKey);
+                await Hive.openBox<ProductModel>(
+                  AppConstants.productsBox,
+                  encryptionKey: newKey,
+                );
+                await Hive.openBox<SaleModel>(
+                  AppConstants.salesBox,
+                  encryptionKey: newKey,
+                );
                 // Notes box must also use the new encryption key
-                await Hive.openBox<dynamic>(AppConstants.notesBox,
-                    encryptionKey: newKey);
+                await Hive.openBox<dynamic>(
+                  AppConstants.notesBox,
+                  encryptionKey: newKey,
+                );
               } catch (e) {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -714,10 +800,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _setupPin(BuildContext context) {
     showDialog(
       context: context,
-      builder: (ctx) => _SetupPinDialog(
-        settings: _settings,
-        onPinSet: () => setState(() {}),
-      ),
+      builder: (ctx) =>
+          _SetupPinDialog(settings: _settings, onPinSet: () => setState(() {})),
     );
   }
 }
@@ -896,7 +980,10 @@ class _EditTextDialogState extends State<_EditTextDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.title, style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+      title: Text(
+        widget.title,
+        style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+      ),
       content: TextField(
         controller: _ctrl,
         keyboardType: widget.keyboardType,
@@ -924,7 +1011,8 @@ class _RestoreFromBackupDialog extends StatefulWidget {
   const _RestoreFromBackupDialog();
 
   @override
-  State<_RestoreFromBackupDialog> createState() => _RestoreFromBackupDialogState();
+  State<_RestoreFromBackupDialog> createState() =>
+      _RestoreFromBackupDialogState();
 }
 
 class _RestoreFromBackupDialogState extends State<_RestoreFromBackupDialog> {
@@ -945,14 +1033,20 @@ class _RestoreFromBackupDialogState extends State<_RestoreFromBackupDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Restore from Backup', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+      title: Text(
+        'Restore from Backup',
+        style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'WARNING: Restoring will overwrite all current products, sales, and settings. This action cannot be undone.',
-            style: TextStyle(color: AppTheme.dangerColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: AppTheme.dangerColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 12),
           TextField(
@@ -978,14 +1072,21 @@ class _RestoreFromBackupDialogState extends State<_RestoreFromBackupDialog> {
               await BackupRestoreHelper.restoreFromBackupJson(data);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Backup restored successfully!'), behavior: SnackBarBehavior.floating),
+                  const SnackBar(
+                    content: Text('Backup restored successfully!'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
                 );
                 Navigator.pop(context);
               }
             } catch (e) {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Restore failed: ${e.toString()}'), backgroundColor: AppTheme.dangerColor, behavior: SnackBarBehavior.floating),
+                  SnackBar(
+                    content: Text('Restore failed: ${e.toString()}'),
+                    backgroundColor: AppTheme.dangerColor,
+                    behavior: SnackBarBehavior.floating,
+                  ),
                 );
               }
             }
@@ -1001,10 +1102,7 @@ class _SetupPinDialog extends StatefulWidget {
   final SettingsRepository settings;
   final VoidCallback onPinSet;
 
-  const _SetupPinDialog({
-    required this.settings,
-    required this.onPinSet,
-  });
+  const _SetupPinDialog({required this.settings, required this.onPinSet});
 
   @override
   State<_SetupPinDialog> createState() => _SetupPinDialogState();
@@ -1028,7 +1126,10 @@ class _SetupPinDialogState extends State<_SetupPinDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Set PIN', style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700)),
+      title: Text(
+        'Set PIN',
+        style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+      ),
       content: TextField(
         controller: _ctrl,
         keyboardType: TextInputType.number,

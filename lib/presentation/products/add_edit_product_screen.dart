@@ -36,9 +36,19 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   bool get _isEditing => widget.product != null;
 
   final List<String> _categories = [
-    'General', 'Beverages', 'Bakery', 'Groceries', 'Household',
-    'Personal Care', 'Dairy', 'Airtime', 'Electronics', 'Clothing',
-    'Stationery', 'Medicine', 'Other',
+    'General',
+    'Beverages',
+    'Bakery',
+    'Groceries',
+    'Household',
+    'Personal Care',
+    'Dairy',
+    'Airtime',
+    'Electronics',
+    'Clothing',
+    'Stationery',
+    'Medicine',
+    'Other',
   ];
 
   @override
@@ -81,18 +91,24 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
         actions: [
           if (_isEditing)
             IconButton(
-              icon: const Icon(Icons.delete_rounded, color: AppTheme.dangerColor),
+              icon: const Icon(
+                Icons.delete_rounded,
+                color: AppTheme.dangerColor,
+              ),
               tooltip: 'Delete',
               onPressed: () async {
                 final confirm = await showConfirmDialog(
                   context,
                   title: 'Delete Product',
-                  message: 'Are you sure you want to delete "${widget.product!.name}"?',
+                  message:
+                      'Are you sure you want to delete "${widget.product!.name}"?',
                   confirmLabel: 'Delete',
                   isDanger: true,
                 );
                 if (confirm == true && mounted) {
-                  await context.read<ProductCubit>().deleteProduct(widget.product!.id);
+                  await context.read<ProductCubit>().deleteProduct(
+                    widget.product!.id,
+                  );
                   if (mounted) Navigator.pop(context);
                 }
               },
@@ -124,12 +140,19 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                     child: _imagePath != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: Image.file(File(_imagePath!), fit: BoxFit.cover),
+                            child: Image.file(
+                              File(_imagePath!),
+                              fit: BoxFit.cover,
+                            ),
                           )
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.add_a_photo_rounded, color: AppTheme.primaryColor, size: 28),
+                              const Icon(
+                                Icons.add_a_photo_rounded,
+                                color: AppTheme.primaryColor,
+                                size: 28,
+                              ),
                               const SizedBox(height: 4),
                               Text(
                                 'Add Photo',
@@ -153,7 +176,8 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
               AshopTextField(
                 label: 'Product Name *',
                 controller: _nameCtrl,
-                validator: (v) => v == null || v.isEmpty ? 'Name is required' : null,
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Name is required' : null,
               ),
               const SizedBox(height: 12),
 
@@ -163,7 +187,9 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                     child: AshopTextField(
                       label: 'Selling Price *',
                       controller: _sellingPriceCtrl,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
                       onChanged: (_) => setState(() {}),
                       validator: (v) {
                         if (v == null || v.isEmpty) return 'Required';
@@ -177,7 +203,9 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                     child: AshopTextField(
                       label: 'Cost Price',
                       controller: _costPriceCtrl,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
                       onChanged: (_) => setState(() {}),
                     ),
                   ),
@@ -210,41 +238,62 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
               ),
 
               // Profit Preview
-              if (_sellingPriceCtrl.text.isNotEmpty && _costPriceCtrl.text.isNotEmpty) ...[
+              if (_sellingPriceCtrl.text.isNotEmpty &&
+                  _costPriceCtrl.text.isNotEmpty) ...[
                 const SizedBox(height: 12),
-                Builder(builder: (context) {
-                  final sell = double.tryParse(_sellingPriceCtrl.text) ?? 0;
-                  final cost = double.tryParse(_costPriceCtrl.text) ?? 0;
-                  final profit = sell - cost;
-                  final margin = cost > 0 ? (profit / cost * 100) : 0;
-                  final isPositive = profit >= 0;
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: (isPositive ? AppTheme.successColor : AppTheme.dangerColor).withOpacity(0.08),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: (isPositive ? AppTheme.successColor : AppTheme.dangerColor).withOpacity(0.25),
+                Builder(
+                  builder: (context) {
+                    final sell = double.tryParse(_sellingPriceCtrl.text) ?? 0;
+                    final cost = double.tryParse(_costPriceCtrl.text) ?? 0;
+                    final profit = sell - cost;
+                    final margin = cost > 0 ? (profit / cost * 100) : 0;
+                    final isPositive = profit >= 0;
+                    return Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color:
+                            (isPositive
+                                    ? AppTheme.successColor
+                                    : AppTheme.dangerColor)
+                                .withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color:
+                              (isPositive
+                                      ? AppTheme.successColor
+                                      : AppTheme.dangerColor)
+                                  .withOpacity(0.25),
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _ProfitStat(
-                          label: 'Profit/Unit',
-                          value: profit.toStringAsFixed(0),
-                          color: isPositive ? AppTheme.successColor : AppTheme.dangerColor,
-                        ),
-                        Container(width: 1, height: 30, color: (isPositive ? AppTheme.successColor : AppTheme.dangerColor).withOpacity(0.2)),
-                        _ProfitStat(
-                          label: 'Margin',
-                          value: '${margin.toStringAsFixed(1)}%',
-                          color: AppTheme.accentColor,
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _ProfitStat(
+                            label: 'Profit/Unit',
+                            value: profit.toStringAsFixed(0),
+                            color: isPositive
+                                ? AppTheme.successColor
+                                : AppTheme.dangerColor,
+                          ),
+                          Container(
+                            width: 1,
+                            height: 30,
+                            color:
+                                (isPositive
+                                        ? AppTheme.successColor
+                                        : AppTheme.dangerColor)
+                                    .withOpacity(0.2),
+                          ),
+                          _ProfitStat(
+                            label: 'Margin',
+                            value: '${margin.toStringAsFixed(1)}%',
+                            color: AppTheme.accentColor,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ],
 
               const SizedBox(height: 24),
@@ -256,7 +305,12 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                 decoration: const InputDecoration(labelText: 'Category'),
                 isExpanded: true,
                 items: _categories
-                    .map((c) => DropdownMenuItem(value: c, child: Text(c, overflow: TextOverflow.ellipsis)))
+                    .map(
+                      (c) => DropdownMenuItem(
+                        value: c,
+                        child: Text(c, overflow: TextOverflow.ellipsis),
+                      ),
+                    )
                     .toList(),
                 onChanged: (v) => setState(() => _category = v ?? 'General'),
               ),
@@ -291,9 +345,17 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                       ? const SizedBox(
                           width: 18,
                           height: 18,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
                         )
-                      : Icon(_isEditing ? Icons.save_rounded : Icons.add_circle_rounded, size: 18),
+                      : Icon(
+                          _isEditing
+                              ? Icons.save_rounded
+                              : Icons.add_circle_rounded,
+                          size: 18,
+                        ),
                   label: Text(_isEditing ? 'Save Changes' : 'Add Product'),
                 ),
               ),
@@ -314,22 +376,22 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (_) => Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            ListTile(
-              leading: const Icon(Icons.camera_alt_rounded),
-              title: const Text('Take Photo'),
-              onTap: () => Navigator.pop(context, ImageSource.camera),
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_library_rounded),
-              title: const Text('Choose from Gallery'),
-              onTap: () => Navigator.pop(context, ImageSource.gallery),
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 8),
+          ListTile(
+            leading: const Icon(Icons.camera_alt_rounded),
+            title: const Text('Take Photo'),
+            onTap: () => Navigator.pop(context, ImageSource.camera),
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_library_rounded),
+            title: const Text('Choose from Gallery'),
+            onTap: () => Navigator.pop(context, ImageSource.gallery),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
     );
     if (source != null) {
       final file = await picker.pickImage(source: source, maxWidth: 600);
@@ -418,15 +480,29 @@ class _ProfitStat extends StatelessWidget {
   final String value;
   final Color color;
 
-  const _ProfitStat({required this.label, required this.value, required this.color});
+  const _ProfitStat({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(value, style: GoogleFonts.plusJakartaSans(fontSize: 15, fontWeight: FontWeight.w800, color: color)),
+        Text(
+          value,
+          style: GoogleFonts.plusJakartaSans(
+            fontSize: 15,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(label, style: GoogleFonts.inter(fontSize: 10, color: color.withOpacity(0.8))),
+        Text(
+          label,
+          style: GoogleFonts.inter(fontSize: 10, color: color.withOpacity(0.8)),
+        ),
       ],
     );
   }

@@ -11,10 +11,12 @@ class SaleRepository {
   String _generateReceiptNumber() {
     final now = DateTime.now();
     const prefix = 'ASH';
-    final date = '${now.year.toString().substring(2)}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}';
+    final date =
+        '${now.year.toString().substring(2)}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}';
     // Monotonic counter persisted in settings — immune to deletions/refunds
     final settingsBox = Hive.box(AppConstants.settingsBox);
-    final next = settingsBox.get(AppConstants.receiptCounterKey, defaultValue: 1) as int;
+    final next =
+        settingsBox.get(AppConstants.receiptCounterKey, defaultValue: 1) as int;
     settingsBox.put(AppConstants.receiptCounterKey, next + 1);
     final seq = next.toString().padLeft(4, '0');
     return '$prefix-$date-$seq';
@@ -30,19 +32,20 @@ class SaleRepository {
       return s.createdAt.year == date.year &&
           s.createdAt.month == date.month &&
           s.createdAt.day == date.day;
-    }).toList()
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 
   List<SaleModel> getSalesInRange(DateTime start, DateTime end) {
     // Inclusive of both start and end day, using midnight boundaries
     final startDay = DateTime(start.year, start.month, start.day);
-    final endDay =
-        DateTime(end.year, end.month, end.day).add(const Duration(days: 1));
+    final endDay = DateTime(
+      end.year,
+      end.month,
+      end.day,
+    ).add(const Duration(days: 1));
     return _box.values.where((s) {
       return !s.createdAt.isBefore(startDay) && s.createdAt.isBefore(endDay);
-    }).toList()
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 
   List<SaleModel> getTodaySales() => getSalesByDate(DateTime.now());
@@ -86,7 +89,10 @@ class SaleRepository {
     return sale;
   }
 
-  Future<void> refundSale(String saleId, ProductRepository productRepository) async {
+  Future<void> refundSale(
+    String saleId,
+    ProductRepository productRepository,
+  ) async {
     final sale = getSaleById(saleId);
     if (sale == null || sale.isRefunded) return;
     // Restore stock for every item in the sale (best-effort per item)
@@ -112,8 +118,11 @@ class SaleRepository {
   double getTodayProfit() {
     return getTodaySales()
         .where((s) => !s.isRefunded)
-        .fold(0.0, (sum, s) =>
-            sum + s.items.fold(0.0, (iSum, item) => iSum + item.profit));
+        .fold(
+          0.0,
+          (sum, s) =>
+              sum + s.items.fold(0.0, (iSum, item) => iSum + item.profit),
+        );
   }
 
   int getTodayTransactionCount() {
