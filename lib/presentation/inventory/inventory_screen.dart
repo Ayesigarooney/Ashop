@@ -70,7 +70,7 @@ class InventoryScreen extends StatelessWidget {
                                 'Stock Value (Cost)',
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
-                                  color: Colors.white.withOpacity(0.75),
+                                  color: Colors.white.withValues(alpha: 0.75),
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -95,7 +95,7 @@ class InventoryScreen extends StatelessWidget {
                         Container(
                           width: 1,
                           height: 36,
-                          color: Colors.white.withOpacity(0.25),
+                          color: Colors.white.withValues(alpha: 0.25),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -106,7 +106,7 @@ class InventoryScreen extends StatelessWidget {
                                 'Retail Value',
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
-                                  color: Colors.white.withOpacity(0.75),
+                                  color: Colors.white.withValues(alpha: 0.75),
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -138,7 +138,7 @@ class InventoryScreen extends StatelessWidget {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.15),
+                          color: Colors.white.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -252,9 +252,9 @@ class _InventoryTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: product.isOutOfStock
-              ? AppTheme.dangerColor.withOpacity(0.25)
+              ? AppTheme.dangerColor.withValues(alpha: 0.25)
               : product.isLowStock(threshold: lowStockThreshold)
-              ? AppTheme.warningColor.withOpacity(0.2)
+              ? AppTheme.warningColor.withValues(alpha: 0.2)
               : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
         ),
       ),
@@ -287,7 +287,7 @@ class _InventoryTile extends StatelessWidget {
                   product.category,
                   style: GoogleFonts.inter(
                     fontSize: 11,
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
               ],
@@ -309,7 +309,7 @@ class _InventoryTile extends StatelessWidget {
                 CurrencyFormatter.format(stockValue, currency: currency),
                 style: GoogleFonts.inter(
                   fontSize: 11,
-                  color: theme.colorScheme.onSurface.withOpacity(0.45),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
                 ),
               ),
             ],

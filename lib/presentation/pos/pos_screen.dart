@@ -171,7 +171,7 @@ class _PosScreenState extends State<PosScreen> {
                             fontWeight: FontWeight.w600,
                             color: selected
                                 ? Colors.white
-                                : theme.colorScheme.onSurface.withOpacity(0.65),
+                                : theme.colorScheme.onSurface.withValues(alpha: 0.65),
                           ),
                         ),
                       ),
@@ -281,7 +281,7 @@ class _PosScreenState extends State<PosScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primaryColor.withOpacity(0.4),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.4),
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
@@ -294,7 +294,7 @@ class _PosScreenState extends State<PosScreen> {
                       width: 22,
                       height: 22,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.25),
+                        color: Colors.white.withValues(alpha: 0.25),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
@@ -321,7 +321,7 @@ class _PosScreenState extends State<PosScreen> {
                     Container(
                       width: 1,
                       height: 16,
-                      color: Colors.white.withOpacity(0.3),
+                      color: Colors.white.withValues(alpha: 0.3),
                     ),
                     const SizedBox(width: 10),
                     Text(
@@ -419,9 +419,9 @@ class _ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: product.isOutOfStock
-                ? AppTheme.dangerColor.withOpacity(0.3)
+                ? AppTheme.dangerColor.withValues(alpha: 0.3)
                 : product.isLowStock(threshold: lowStockThreshold)
-                ? AppTheme.warningColor.withOpacity(0.25)
+                ? AppTheme.warningColor.withValues(alpha: 0.25)
                 : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           ),
         ),
@@ -435,7 +435,7 @@ class _ProductCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isDark
                       ? AppTheme.darkCardAlt
-                      : AppTheme.primaryColor.withOpacity(0.05),
+                      : AppTheme.primaryColor.withValues(alpha: 0.05),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(15),
                   ),
@@ -462,7 +462,7 @@ class _ProductCard extends StatelessWidget {
                     if (product.isOutOfStock)
                       Container(
                         decoration: BoxDecoration(
-                          color: AppTheme.dangerColor.withOpacity(0.85),
+                          color: AppTheme.dangerColor.withValues(alpha: 0.85),
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(15),
                           ),
@@ -559,7 +559,7 @@ class _ProductCard extends StatelessWidget {
                           height: 26,
                           decoration: BoxDecoration(
                             color: product.isOutOfStock
-                                ? AppTheme.dangerColor.withOpacity(0.15)
+                                ? AppTheme.dangerColor.withValues(alpha: 0.15)
                                 : AppTheme.primaryColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -596,7 +596,7 @@ class _ProductCard extends StatelessWidget {
     return Icon(
       icons[category] ?? Icons.inventory_2_rounded,
       size: 34,
-      color: AppTheme.primaryColor.withOpacity(0.45),
+      color: AppTheme.primaryColor.withValues(alpha: 0.45),
     );
   }
 }

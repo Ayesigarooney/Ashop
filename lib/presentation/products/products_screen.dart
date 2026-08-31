@@ -66,7 +66,7 @@ class _ProductsScreenState extends State<ProductsScreen>
           unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
           indicatorColor: AppTheme.primaryColor,
           labelColor: AppTheme.primaryColor,
-          unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.5),
+          unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           indicatorSize: TabBarIndicatorSize.label,
         ),
       ),
@@ -156,7 +156,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
+                  color: Colors.grey.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -322,9 +322,9 @@ class _ProductTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: product.isOutOfStock
-                ? AppTheme.dangerColor.withOpacity(0.3)
+                ? AppTheme.dangerColor.withValues(alpha: 0.3)
                 : product.isLowStock(threshold: lowStockThreshold)
-                ? AppTheme.warningColor.withOpacity(0.25)
+                ? AppTheme.warningColor.withValues(alpha: 0.25)
                 : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           ),
         ),
@@ -334,7 +334,7 @@ class _ProductTile extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.1),
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(
@@ -373,7 +373,7 @@ class _ProductTile extends StatelessWidget {
                     product.category,
                     style: GoogleFonts.inter(
                       fontSize: 11,
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -394,14 +394,14 @@ class _ProductTile extends StatelessWidget {
                       Icon(
                         Icons.inventory_rounded,
                         size: 12,
-                        color: theme.colorScheme.onSurface.withOpacity(0.4),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                       ),
                       const SizedBox(width: 3),
                       Text(
                         '${product.stockQuantity} ${product.unit ?? 'units'}',
                         style: GoogleFonts.inter(
                           fontSize: 11,
-                          color: theme.colorScheme.onSurface.withOpacity(0.5),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                         ),
                       ),
                     ],
@@ -412,7 +412,7 @@ class _ProductTile extends StatelessWidget {
             const SizedBox(width: 6),
             Icon(
               Icons.chevron_right_rounded,
-              color: theme.colorScheme.onSurface.withOpacity(0.25),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.25),
               size: 20,
             ),
           ],

@@ -86,8 +86,8 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                           width: 36,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.onSurface.withOpacity(
-                              0.15,
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.15,
                             ),
                             borderRadius: BorderRadius.circular(2),
                           ),
@@ -112,7 +112,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
                                         color: theme.colorScheme.onSurface
-                                            .withOpacity(0.08),
+                                            .withValues(alpha: 0.08),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Icon(
@@ -175,8 +175,8 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                             itemCount: cart.items.length,
                             separatorBuilder: (_, __) => Divider(
                               height: 1,
-                              color: theme.colorScheme.onSurface.withOpacity(
-                                0.08,
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.08,
                               ),
                             ),
                             itemBuilder: (_, i) {
@@ -205,13 +205,13 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                             vertical: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.onSurface.withOpacity(
-                              0.03,
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.03,
                             ),
                             border: Border(
                               top: BorderSide(
-                                color: theme.colorScheme.onSurface.withOpacity(
-                                  0.08,
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.08,
                                 ),
                               ),
                             ),
@@ -229,7 +229,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                                 style: GoogleFonts.inter(
                                   fontSize: 13,
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -253,7 +253,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                                     hintStyle: TextStyle(
                                       fontSize: 12,
                                       color: theme.colorScheme.onSurface
-                                          .withOpacity(0.4),
+                                          .withValues(alpha: 0.4),
                                     ),
                                   ),
                                   onChanged: (v) {
@@ -297,8 +297,8 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                               const SizedBox(height: 6),
                               Divider(
                                 height: 1,
-                                color: theme.colorScheme.onSurface.withOpacity(
-                                  0.1,
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.1,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -347,7 +347,7 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                                       Text(
                                         'Amount Due',
                                         style: GoogleFonts.inter(
-                                          color: Colors.white.withOpacity(0.8),
+                                          color: Colors.white.withValues(alpha: 0.8),
                                           fontSize: 13,
                                         ),
                                       ),
@@ -460,18 +460,18 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
                                           decoration: BoxDecoration(
                                             color: change >= 0
                                                 ? AppTheme.successColor
-                                                      .withOpacity(0.1)
+                                                      .withValues(alpha: 0.1)
                                                 : AppTheme.dangerColor
-                                                      .withOpacity(0.1),
+                                                      .withValues(alpha: 0.1),
                                             borderRadius: BorderRadius.circular(
                                               12,
                                             ),
                                             border: Border.all(
                                               color: change >= 0
                                                   ? AppTheme.successColor
-                                                        .withOpacity(0.3)
+                                                        .withValues(alpha: 0.3)
                                                   : AppTheme.dangerColor
-                                                        .withOpacity(0.3),
+                                                        .withValues(alpha: 0.3),
                                             ),
                                           ),
                                           child: Row(
@@ -662,7 +662,7 @@ class _PaymentMethodTile extends StatelessWidget {
               size: 16,
               color: selected
                   ? Colors.white
-                  : theme.colorScheme.onSurface.withOpacity(0.6),
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             const SizedBox(width: 6),
             Expanded(
@@ -673,7 +673,7 @@ class _PaymentMethodTile extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: selected
                       ? Colors.white
-                      : theme.colorScheme.onSurface.withOpacity(0.7),
+                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -725,7 +725,7 @@ class _CartItemTile extends StatelessWidget {
                   '${CurrencyFormatter.format(item.unitPrice, currency: currency)} each',
                   style: GoogleFonts.inter(
                     fontSize: 11,
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
               ],
@@ -736,7 +736,7 @@ class _CartItemTile extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: theme.colorScheme.onSurface.withOpacity(0.12),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.12),
               ),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -753,7 +753,7 @@ class _CartItemTile extends StatelessWidget {
                     child: Icon(
                       Icons.remove,
                       size: 20,
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ),
@@ -781,7 +781,7 @@ class _CartItemTile extends StatelessWidget {
                     child: Icon(
                       Icons.add,
                       size: 14,
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ),
@@ -846,7 +846,7 @@ class _TotalRow extends StatelessWidget {
               fontWeight: isTotal ? FontWeight.w700 : FontWeight.w400,
               color: isTotal
                   ? theme.colorScheme.onSurface
-                  : theme.colorScheme.onSurface.withOpacity(0.6),
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(width: 16),

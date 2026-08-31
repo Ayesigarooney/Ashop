@@ -138,7 +138,7 @@ class _PinScreenState extends State<PinScreen>
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: AppTheme.primaryColor.withOpacity(0.4),
+                        color: AppTheme.primaryColor.withValues(alpha: 0.4),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
                       ),
@@ -167,7 +167,7 @@ class _PinScreenState extends State<PinScreen>
                   style: GoogleFonts.inter(
                     color: lockedOut
                         ? AppTheme.dangerColor
-                        : Colors.white.withOpacity(0.55),
+                        : Colors.white.withValues(alpha: 0.55),
                     fontSize: 14,
                   ),
                 ),
@@ -200,7 +200,7 @@ class _PinScreenState extends State<PinScreen>
                               ? AppTheme.dangerColor
                               : filled
                               ? AppTheme.primaryColor
-                              : Colors.white.withOpacity(0.15),
+                              : Colors.white.withValues(alpha: 0.15),
                           border: Border.all(
                             color: _error
                                 ? AppTheme.dangerColor
@@ -276,14 +276,14 @@ class _PinScreenState extends State<PinScreen>
                                               : _onKey(k),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(
-                                                0.07,
+                                              color: Colors.white.withValues(
+                                                alpha: 0.07,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(14),
                                               border: Border.all(
-                                                color: Colors.white.withOpacity(
-                                                  0.08,
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.08,
                                                 ),
                                               ),
                                             ),

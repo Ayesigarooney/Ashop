@@ -130,10 +130,10 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                     width: 90,
                     height: 90,
                     decoration: BoxDecoration(
-                      color: AppTheme.primaryColor.withOpacity(0.08),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(18),
                       border: Border.all(
-                        color: AppTheme.primaryColor.withOpacity(0.25),
+                        color: AppTheme.primaryColor.withValues(alpha: 0.25),
                         width: 1.5,
                       ),
                     ),
@@ -255,14 +255,14 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                             (isPositive
                                     ? AppTheme.successColor
                                     : AppTheme.dangerColor)
-                                .withOpacity(0.08),
+                                .withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color:
                               (isPositive
                                       ? AppTheme.successColor
                                       : AppTheme.dangerColor)
-                                  .withOpacity(0.25),
+                                  .withValues(alpha: 0.25),
                         ),
                       ),
                       child: Row(
@@ -282,7 +282,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                                 (isPositive
                                         ? AppTheme.successColor
                                         : AppTheme.dangerColor)
-                                    .withOpacity(0.2),
+                                    .withValues(alpha: 0.2),
                           ),
                           _ProfitStat(
                             label: 'Margin',
@@ -301,7 +301,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
               const SizedBox(height: 12),
 
               DropdownButtonFormField<String>(
-                value: _category,
+                initialValue: _category,
                 decoration: const InputDecoration(labelText: 'Category'),
                 isExpanded: true,
                 items: _categories
@@ -501,7 +501,7 @@ class _ProfitStat extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           label,
-          style: GoogleFonts.inter(fontSize: 10, color: color.withOpacity(0.8)),
+          style: GoogleFonts.inter(fontSize: 10, color: color.withValues(alpha: 0.8)),
         ),
       ],
     );

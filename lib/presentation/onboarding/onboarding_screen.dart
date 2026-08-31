@@ -157,7 +157,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: page.color.withOpacity(0.15),
+              color: page.color.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(page.icon, size: 56, color: page.color),
@@ -177,7 +177,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             page.description,
             style: GoogleFonts.inter(
               fontSize: 15,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
               height: 1.5,
             ),
             textAlign: TextAlign.center,

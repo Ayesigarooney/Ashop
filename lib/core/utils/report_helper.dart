@@ -38,8 +38,9 @@ class ReportHelper {
     final Map<String, Map<String, dynamic>> agg = {};
 
     for (final sale in salesBox.values) {
-      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end))
+      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end)) {
         continue;
+      }
       for (final item in sale.items) {
         final key = item.productId;
         final existing = agg[key];
@@ -85,8 +86,9 @@ class ReportHelper {
     double cost = 0;
 
     for (final sale in salesBox.values) {
-      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end))
+      if (sale.createdAt.isBefore(start) || sale.createdAt.isAfter(end)) {
         continue;
+      }
       revenue += sale.total;
       for (final item in sale.items) {
         cost += item.costPrice * item.quantity;

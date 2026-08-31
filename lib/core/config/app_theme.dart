@@ -43,12 +43,10 @@ class AppTheme {
         primary: primaryColor,
         secondary: accentColor,
         surface: darkSurface,
-        background: darkBg,
         error: dangerColor,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: darkText,
-        onBackground: darkText,
         onError: Colors.white,
       ),
       textTheme: AppFonts.buildTextTheme(darkText, darkTextSub),
@@ -176,14 +174,14 @@ class AppTheme {
         ),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith(
-          (states) => states.contains(MaterialState.selected)
+        thumbColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
               ? primaryColor
               : darkTextSub,
         ),
-        trackColor: MaterialStateProperty.resolveWith(
-          (states) => states.contains(MaterialState.selected)
-              ? primaryColor.withOpacity(0.4)
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? primaryColor.withValues(alpha: 0.4)
               : darkCardAlt,
         ),
       ),
@@ -216,12 +214,10 @@ class AppTheme {
         primary: primaryColor,
         secondary: accentColor,
         surface: lightSurface,
-        background: lightBg,
         error: dangerColor,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: lightText,
-        onBackground: lightText,
         onError: Colors.white,
       ),
       textTheme: AppFonts.buildTextTheme(lightText, lightTextSub),
@@ -390,7 +386,7 @@ class AppTheme {
 
   static BoxDecoration get glassDecoration => BoxDecoration(
     borderRadius: BorderRadius.circular(16),
-    color: Colors.white.withOpacity(0.05),
-    border: Border.all(color: Colors.white.withOpacity(0.1)),
+    color: Colors.white.withValues(alpha: 0.05),
+    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
   );
 }

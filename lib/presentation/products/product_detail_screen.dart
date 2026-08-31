@@ -69,7 +69,7 @@ class ProductDetailScreen extends StatelessWidget {
                     width: 64,
                     height: 64,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: const Icon(
@@ -102,7 +102,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 vertical: 3,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Colors.white.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -122,14 +122,14 @@ class ProductDetailScreen extends StatelessWidget {
                                   vertical: 3,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.15),
+                                  color: Colors.white.withValues(alpha: 0.15),
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Text(
                                   product.unit!,
                                   style: GoogleFonts.inter(
                                     fontSize: 11,
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -212,9 +212,9 @@ class ProductDetailScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: product.isOutOfStock
-                      ? AppTheme.dangerColor.withOpacity(0.3)
+                      ? AppTheme.dangerColor.withValues(alpha: 0.3)
                       : product.isLowStock(threshold: lowStockThreshold)
-                      ? AppTheme.warningColor.withOpacity(0.3)
+                      ? AppTheme.warningColor.withValues(alpha: 0.3)
                       : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
                 ),
               ),
@@ -228,7 +228,7 @@ class ProductDetailScreen extends StatelessWidget {
                         'Current Stock',
                         style: GoogleFonts.inter(
                           fontSize: 12,
-                          color: theme.colorScheme.onSurface.withOpacity(0.55),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -341,7 +341,7 @@ class ProductDetailScreen extends StatelessWidget {
                 product.description!,
                 style: GoogleFonts.inter(
                   fontSize: 13,
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   height: 1.5,
                 ),
               ),
@@ -352,7 +352,7 @@ class ProductDetailScreen extends StatelessWidget {
               'Added: ${DateFormatter.formatDateTime(product.createdAt)}',
               style: GoogleFonts.inter(
                 fontSize: 11,
-                color: theme.colorScheme.onSurface.withOpacity(0.35),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
               ),
             ),
             const SizedBox(height: 3),
@@ -360,7 +360,7 @@ class ProductDetailScreen extends StatelessWidget {
               'Updated: ${DateFormatter.timeAgo(product.updatedAt)}',
               style: GoogleFonts.inter(
                 fontSize: 11,
-                color: theme.colorScheme.onSurface.withOpacity(0.35),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
               ),
             ),
             const SizedBox(height: 32),
@@ -504,9 +504,9 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.07),
+        color: color.withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withOpacity(0.18)),
+        border: Border.all(color: color.withValues(alpha: 0.18)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -527,7 +527,7 @@ class _InfoCard extends StatelessWidget {
             title,
             style: GoogleFonts.inter(
               fontSize: 10,
-              color: theme.colorScheme.onSurface.withOpacity(0.55),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
             ),
           ),
         ],

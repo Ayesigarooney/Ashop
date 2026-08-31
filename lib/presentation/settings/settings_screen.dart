@@ -56,10 +56,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryColor.withOpacity(0.08),
+                    color: AppTheme.primaryColor.withValues(alpha: 0.08),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: AppTheme.primaryColor.withOpacity(0.25),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.25),
                       width: 2,
                     ),
                   ),
@@ -126,7 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   : _settings.shopAddress,
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: theme.colorScheme.onSurface.withOpacity(0.55),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
               ),
             ),
           ),
@@ -286,7 +286,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () => _editText(
                     context,
                     'Tax Rate (%)',
-                    '${(_settings.taxRate * 100).toStringAsFixed(0)}',
+                    (_settings.taxRate * 100).toStringAsFixed(0),
                     (v) {
                       final rate = double.tryParse(v);
                       if (rate != null) _settings.taxRate = rate / 100;
@@ -465,7 +465,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontSize: 12,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.45),
+                    ).colorScheme.onSurface.withValues(alpha: 0.45),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -475,7 +475,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontSize: 11,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.3),
+                    ).colorScheme.onSurface.withValues(alpha: 0.3),
                   ),
                 ),
                 Text(
@@ -484,7 +484,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontSize: 11,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.3),
+                    ).colorScheme.onSurface.withValues(alpha: 0.3),
                   ),
                 ),
               ],
@@ -599,7 +599,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _pickCurrency(BuildContext context) {
-    final currencies = AppConstants.currencies;
+    const currencies = AppConstants.currencies;
     showDialog(
       context: context,
       builder: (ctx) => SimpleDialog(
@@ -886,7 +886,7 @@ class _SettingsTile extends StatelessWidget {
               subtitle!,
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
               overflow: TextOverflow.ellipsis,
             )
@@ -894,7 +894,7 @@ class _SettingsTile extends StatelessWidget {
       trailing: onTap != null
           ? Icon(
               Icons.chevron_right_rounded,
-              color: theme.colorScheme.onSurface.withOpacity(0.25),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.25),
               size: 20,
             )
           : null,
@@ -934,13 +934,13 @@ class _SettingsSwitchTile extends StatelessWidget {
               subtitle!,
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             )
           : null,
       value: value,
       onChanged: onChanged,
-      activeColor: AppTheme.primaryColor,
+      activeThumbColor: AppTheme.primaryColor,
     );
   }
 }

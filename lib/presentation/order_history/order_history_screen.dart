@@ -138,10 +138,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       vertical: 7,
                     ),
                     decoration: BoxDecoration(
-                      color: AppTheme.primaryColor.withOpacity(0.08),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: AppTheme.primaryColor.withOpacity(0.2),
+                        color: AppTheme.primaryColor.withValues(alpha: 0.2),
                       ),
                     ),
                     child: Row(
@@ -204,7 +204,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                         Text(
                           '${sales.length} orders',
                           style: GoogleFonts.inter(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 13,
                           ),
                         ),
@@ -298,7 +298,7 @@ class _OrderTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: sale.isRefunded
-                ? AppTheme.dangerColor.withOpacity(0.25)
+                ? AppTheme.dangerColor.withValues(alpha: 0.25)
                 : (isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           ),
         ),
@@ -311,8 +311,8 @@ class _OrderTile extends StatelessWidget {
                   height: 40,
                   decoration: BoxDecoration(
                     color: sale.isRefunded
-                        ? AppTheme.dangerColor.withOpacity(0.1)
-                        : AppTheme.primaryColor.withOpacity(0.1),
+                        ? AppTheme.dangerColor.withValues(alpha: 0.1)
+                        : AppTheme.primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(
@@ -358,7 +358,7 @@ class _OrderTile extends StatelessWidget {
                         '${sale.customerName != null ? ' • ${sale.customerName}' : ''}',
                         style: GoogleFonts.inter(
                           fontSize: 11,
-                          color: theme.colorScheme.onSurface.withOpacity(0.5),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -384,7 +384,7 @@ class _OrderTile extends StatelessWidget {
                       DateFormatter.timeAgo(sale.createdAt),
                       style: GoogleFonts.inter(
                         fontSize: 10,
-                        color: theme.colorScheme.onSurface.withOpacity(0.4),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                       ),
                     ),
                   ],
@@ -395,7 +395,7 @@ class _OrderTile extends StatelessWidget {
               const SizedBox(height: 8),
               Divider(
                 height: 1,
-                color: theme.colorScheme.onSurface.withOpacity(0.07),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.07),
               ),
               const SizedBox(height: 4),
               Row(

@@ -22,9 +22,9 @@ class CurrencyFormatter {
 
   static String formatCompact(double amount, {String currency = 'UGX'}) {
     if (amount >= 1000000) {
-      return '${currency} ${(amount / 1000000).toStringAsFixed(1)}M';
+      return '$currency ${(amount / 1000000).toStringAsFixed(1)}M';
     } else if (amount >= 1000) {
-      return '${currency} ${(amount / 1000).toStringAsFixed(1)}K';
+      return '$currency ${(amount / 1000).toStringAsFixed(1)}K';
     }
     return format(amount, currency: currency);
   }

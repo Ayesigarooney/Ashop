@@ -87,7 +87,7 @@ class AppShellState extends State<AppShell> {
                 color: AppTheme.primaryColor,
               ),
               unselectedIconTheme: IconThemeData(
-                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
               ),
               selectedLabelTextStyle: GoogleFonts.inter(
                 fontSize: 11,
@@ -96,7 +96,7 @@ class AppShellState extends State<AppShell> {
               ),
               unselectedLabelTextStyle: GoogleFonts.inter(
                 fontSize: 11,
-                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
               ),
               destinations: _navItems
                   .map(
@@ -150,7 +150,7 @@ class AppShellState extends State<AppShell> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
               blurRadius: 16,
               offset: const Offset(0, -4),
             ),
@@ -185,11 +185,11 @@ class AppShellState extends State<AppShell> {
                                     ? AppTheme.primaryGradient
                                     : LinearGradient(
                                         colors: [
-                                          AppTheme.primaryColor.withOpacity(
-                                            0.7,
+                                          AppTheme.primaryColor.withValues(
+                                            alpha: 0.7,
                                           ),
-                                          AppTheme.primaryLight.withOpacity(
-                                            0.7,
+                                          AppTheme.primaryLight.withValues(
+                                            alpha: 0.7,
                                           ),
                                         ],
                                         begin: Alignment.topLeft,
@@ -200,7 +200,7 @@ class AppShellState extends State<AppShell> {
                                     ? [
                                         BoxShadow(
                                           color: AppTheme.primaryColor
-                                              .withOpacity(0.45),
+                                              .withValues(alpha: 0.45),
                                           blurRadius: 10,
                                           offset: const Offset(0, 3),
                                         ),
@@ -220,8 +220,8 @@ class AppShellState extends State<AppShell> {
                               height: 26,
                               decoration: isSelected
                                   ? BoxDecoration(
-                                      color: AppTheme.primaryColor.withOpacity(
-                                        0.12,
+                                      color: AppTheme.primaryColor.withValues(
+                                        alpha: 0.12,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     )
@@ -231,8 +231,8 @@ class AppShellState extends State<AppShell> {
                                 size: 19,
                                 color: isSelected
                                     ? AppTheme.primaryColor
-                                    : theme.colorScheme.onSurface.withOpacity(
-                                        0.4,
+                                    : theme.colorScheme.onSurface.withValues(
+                                        alpha: 0.4,
                                       ),
                               ),
                             ),
@@ -246,8 +246,8 @@ class AppShellState extends State<AppShell> {
                                   : FontWeight.w400,
                               color: isSelected
                                   ? AppTheme.primaryColor
-                                  : theme.colorScheme.onSurface.withOpacity(
-                                      0.4,
+                                  : theme.colorScheme.onSurface.withValues(
+                                      alpha: 0.4,
                                     ),
                             ),
                             overflow: TextOverflow.ellipsis,

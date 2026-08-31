@@ -102,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      AppTheme.primaryColor.withOpacity(isDark ? 0.12 : 0.08),
-                      AppTheme.accentColor.withOpacity(isDark ? 0.04 : 0.03),
+                      AppTheme.primaryColor.withValues(alpha: isDark ? 0.12 : 0.08),
+                      AppTheme.accentColor.withValues(alpha: isDark ? 0.04 : 0.03),
                     ],
                   ),
                 ),
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: GoogleFonts.inter(
                                   fontSize: 13,
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.55),
+                                      .withValues(alpha: 0.55),
                                 ),
                               ),
                               const SizedBox(height: 3),
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.4),
+                                      .withValues(alpha: 0.4),
                                 ),
                               ),
                             ],
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(14),
                             boxShadow: [
                               BoxShadow(
-                                color: AppTheme.primaryColor.withOpacity(0.3),
+                                color: AppTheme.primaryColor.withValues(alpha: 0.3),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4),
                               ),
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "Today's Revenue",
                               style: GoogleFonts.inter(
-                                color: Colors.white.withOpacity(0.8),
+                                color: Colors.white.withValues(alpha: 0.8),
                                 fontSize: 12,
                               ),
                             ),
@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.15),
+                              color: Colors.white.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
@@ -494,9 +494,9 @@ class _QuickAction extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 14),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -539,9 +539,9 @@ class _StockAlertTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.07),
+        color: color.withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
@@ -610,7 +610,7 @@ class _RecentSaleTile extends StatelessWidget {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: AppTheme.primaryColor.withOpacity(0.1),
+              color: AppTheme.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
@@ -638,7 +638,7 @@ class _RecentSaleTile extends StatelessWidget {
                   '$itemCount items • $paymentMethod',
                   style: GoogleFonts.inter(
                     fontSize: 11,
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
               ],
@@ -661,7 +661,7 @@ class _RecentSaleTile extends StatelessWidget {
                 time,
                 style: GoogleFonts.inter(
                   fontSize: 10,
-                  color: theme.colorScheme.onSurface.withOpacity(0.4),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                 ),
               ),
             ],

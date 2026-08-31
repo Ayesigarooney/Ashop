@@ -238,8 +238,9 @@ class SaleCubit extends Cubit<SaleState> {
   void setItemDiscount(String productId, double percent) {
     final cart = _cart;
     final newItems = cart.items.map((i) {
-      if (i.product.id == productId)
+      if (i.product.id == productId) {
         return i.copyWith(discountPercent: percent);
+      }
       return i;
     }).toList();
     emit(cart.copyWith(items: newItems));

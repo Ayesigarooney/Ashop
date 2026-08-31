@@ -15,7 +15,6 @@ import '../../features/sale/data/models/sale_model.dart';
 import '../../features/sale/data/repositories/sale_repository.dart';
 import '../../features/settings/data/settings_repository.dart';
 import '../../shared/widgets/shared_widgets.dart';
-import '../order_history/order_history_screen.dart';
 
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
@@ -121,7 +120,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         border: Border.all(
                           color: selected
                               ? AppTheme.primaryColor
-                              : theme.colorScheme.onSurface.withOpacity(0.2),
+                              : theme.colorScheme.onSurface.withValues(alpha: 0.2),
                         ),
                       ),
                       child: Text(
@@ -137,7 +136,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           fontWeight: FontWeight.w700,
                           color: selected
                               ? Colors.white
-                              : theme.colorScheme.onSurface.withOpacity(0.6),
+                              : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ),
@@ -215,15 +214,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           Icon(
                             Icons.bar_chart_rounded,
                             size: 36,
-                            color: theme.colorScheme.onSurface.withOpacity(0.2),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'No data for this period',
                             style: GoogleFonts.inter(
                               fontSize: 13,
-                              color: theme.colorScheme.onSurface.withOpacity(
-                                0.4,
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.4,
                               ),
                             ),
                           ),
@@ -237,8 +236,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           drawVerticalLine: false,
                           horizontalInterval: _getChartInterval(revenueData),
                           getDrawingHorizontalLine: (_) => FlLine(
-                            color: theme.colorScheme.onSurface.withOpacity(
-                              0.06,
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.06,
                             ),
                             strokeWidth: 1,
                           ),
@@ -256,7 +255,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                 style: GoogleFonts.inter(
                                   fontSize: 8,
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.45),
+                                      .withValues(alpha: 0.45),
                                 ),
                               ),
                             ),
@@ -276,7 +275,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                       style: GoogleFonts.inter(
                                         fontSize: 8,
                                         color: theme.colorScheme.onSurface
-                                            .withOpacity(0.45),
+                                            .withValues(alpha: 0.45),
                                       ),
                                     ),
                                   );
@@ -312,8 +311,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                               show: true,
                               gradient: LinearGradient(
                                 colors: [
-                                  AppTheme.primaryColor.withOpacity(0.18),
-                                  AppTheme.primaryColor.withOpacity(0),
+                                  AppTheme.primaryColor.withValues(alpha: 0.18),
+                                  AppTheme.primaryColor.withValues(alpha: 0),
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -465,7 +464,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                   child: LinearProgressIndicator(
                                     value: percent,
                                     backgroundColor: colors[colorIdx]
-                                        .withOpacity(0.12),
+                                        .withValues(alpha: 0.12),
                                     valueColor: AlwaysStoppedAnimation(
                                       colors[colorIdx],
                                     ),
@@ -482,7 +481,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                 style: GoogleFonts.inter(
                                   fontSize: 11,
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.55),
+                                      .withValues(alpha: 0.55),
                                 ),
                               ),
                             ],
@@ -583,7 +582,7 @@ class _ReportActionTile extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: AppTheme.primaryColor.withOpacity(0.1),
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(icon, color: AppTheme.primaryColor, size: 18),
@@ -605,7 +604,7 @@ class _ReportActionTile extends StatelessWidget {
                     subtitle,
                     style: GoogleFonts.inter(
                       fontSize: 11,
-                      color: theme.colorScheme.onSurface.withOpacity(0.45),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
                     ),
                   ),
                 ],
@@ -614,7 +613,7 @@ class _ReportActionTile extends StatelessWidget {
             Icon(
               Icons.chevron_right_rounded,
               size: 18,
-              color: theme.colorScheme.onSurface.withOpacity(0.3),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
             ),
           ],
         ),
@@ -657,8 +656,8 @@ class _TopProductTile extends StatelessWidget {
             height: 28,
             decoration: BoxDecoration(
               color: rank == 1
-                  ? AppTheme.warningColor.withOpacity(0.2)
-                  : AppTheme.primaryColor.withOpacity(0.1),
+                  ? AppTheme.warningColor.withValues(alpha: 0.2)
+                  : AppTheme.primaryColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Center(
@@ -693,7 +692,7 @@ class _TopProductTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(3),
                   child: LinearProgressIndicator(
                     value: progress,
-                    backgroundColor: AppTheme.primaryColor.withOpacity(0.1),
+                    backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.1),
                     valueColor: const AlwaysStoppedAnimation(
                       AppTheme.primaryColor,
                     ),

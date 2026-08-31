@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.primaryColor.withOpacity(0.5),
+                          color: AppTheme.primaryColor.withValues(alpha: 0.5),
                           blurRadius: 40,
                           offset: const Offset(0, 16),
                         ),
@@ -115,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen>
                     AppConstants.appTagline,
                     style: GoogleFonts.inter(
                       fontSize: 15,
-                      color: Colors.white.withOpacity(0.55),
+                      color: Colors.white.withValues(alpha: 0.55),
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -125,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen>
                     height: 32,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
-                      color: AppTheme.primaryColor.withOpacity(0.6),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -133,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen>
                     'Developed by ${AppConstants.developerName}',
                     style: GoogleFonts.inter(
                       fontSize: 11,
-                      color: Colors.white.withOpacity(0.25),
+                      color: Colors.white.withValues(alpha: 0.25),
                     ),
                   ),
                 ],
